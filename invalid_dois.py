@@ -193,7 +193,7 @@ def create_output():
         json.dump(output_dict, fd, indent=4)
 
 
-with open('invalid_doi_part.csv', 'r') as read_obj:
+with open('invalid_doi.csv', 'r') as read_obj:
     publisher_data = dict()
     prefix_to_name_dict = dict()
     correct_dois_data = []
