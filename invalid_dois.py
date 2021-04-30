@@ -19,7 +19,7 @@ def extract_publishers(prefix):
             publisher["prefix"] = prefix
         else:
             publisher["name"] = "unidentified"
-            publisher["prefix"] = "unidentified"
+            publisher["prefix"] = prefix
 
         prefix_to_name_dict[publisher["prefix"]] = publisher["name"]
 
@@ -93,22 +93,32 @@ def extract_publishers_invalid(row):
                 "receiving_i": 1
             }
         else:
-            publisher_data[receiving["name"]]["receiving_v"] += 1
+            publisher_data[receiving["name"]]["receiving_i"] += 1
     else:
         publisher_data[prefix_to_name_dict[rec_prefix]]["receiving_i"] += 1
 
 
 def write_to_csv():
-    global correct_dois_data
+    global correct_dois_data, incorrect_dois_data
     if not os.path.exists('correct_dois.csv'):
         with open('correct_dois.csv', 'w') as fd:
             writer = csv.writer(fd)
             writer.writerow(['Valid_citing_doi', 'Valid_cited_doi'])
 
+    if not os.path.exists('incorrect_dois.csv'):
+        with open('incorrect_dois.csv', 'w') as fd:
+            writer = csv.writer(fd)
+            writer.writerow(['Valid_citing_doi', 'Invalid_cited_doi'])
+
     with open('correct_dois.csv', 'a') as fd:
         writer = csv.writer(fd)
         writer.writerows(correct_dois_data)
         correct_dois_data = []
+
+    with open('incorrect_dois.csv', 'a') as fd:
+        writer = csv.writer(fd)
+        writer.writerows(incorrect_dois_data)
+        incorrect_dois_data = []
 
     with open('publisher_data.csv', 'w') as fd:
         dict_writer = csv.DictWriter(fd, ['name', 'responsible_for_v', 'responsible_for_i', 'receiving_v',
@@ -144,12 +154,51 @@ def extract_row_number():
         return num
 
 
-with open('invalid_dois.csv', 'r') as read_obj:
+def create_output():
+    output_dict = {
+        "citations": {
+            "valid": list(),
+            "invalid": list()
+        },
+        "publishers": list()
+    }
+    publisher_prefix_data = dict()
+
+    with open("correct_dois.csv", 'r') as fd:
+        total_correct = 0
+        reader = csv.DictReader(fd)
+        for row in reader:
+            output_dict["citations"]["valid"].append(dict(row))
+            total_correct += 1
+        output_dict["total_num_of_valid_citations"] = total_correct
+
+    with open("incorrect_dois.csv", 'r') as fd:
+        reader = csv.DictReader(fd)
+        for row in reader:
+            output_dict["citations"]["invalid"].append(dict(row))
+
+    with open("prefix_name.json", 'r') as fd:
+        data = json.load(fd)
+        for key, value in data.items():
+            if value not in publisher_prefix_data.keys():
+                publisher_prefix_data[value] = [key]
+            else:
+                publisher_prefix_data[value].append(key)
+
+    for pub in publisher_data.values():
+        pub["prefix_list"] = publisher_prefix_data[pub["name"]]
+        output_dict["publishers"].append(pub)
+
+    with open("output.json", 'w') as fd:
+        json.dump(output_dict, fd, indent=4)
+
+
+with open('invalid_doi_part.csv', 'r') as read_obj:
     publisher_data = dict()
     prefix_to_name_dict = dict()
     correct_dois_data = []
+    incorrect_dois_data = []
     start_index = extract_row_number()
-
     csv_reader = csv.reader(islice(read_obj, start_index+1, None))
 
     i = 0
@@ -167,9 +216,12 @@ with open('invalid_dois.csv', 'r') as read_obj:
                 correct_dois_data.append(row)
                 extract_publishers_valid(row)
             else:
+                incorrect_dois_data.append(row)
                 extract_publishers_invalid(row)
         except requests.ConnectionError:
             print("failed to connect to doi for row", row)
             quit()
 
         i += 1
+    write_to_csv()
+    create_output()
