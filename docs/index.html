@@ -5,6 +5,51 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style>
+		#main{
+			margin: 40px 80px 40px 80px;
+			text-align:justify;
+		}
+		#button {
+		  display: inline-block;
+		  background-color: #FF9800;
+		  width: 50px;
+		  height: 50px;
+		  text-align: center;
+		  border-radius: 4px;
+		  position: fixed;
+		  bottom: 30px;
+		  right: 30px;
+		  transition: background-color .3s, 
+		    opacity .5s, visibility .5s;
+		  opacity: 0;
+		  visibility: hidden;
+		  z-index: 1000;
+		}
+		#button::after {
+		  content: "\f077";
+		  font-family: FontAwesome;
+		  font-weight: normal;
+		  font-style: normal;
+		  font-size: 2em;
+		  line-height: 50px;
+		  color: #fff;
+		}
+		#button:hover {
+		  cursor: pointer;
+		  background-color: #333;
+		}
+		#button:active {
+		  background-color: #555;
+		}
+		#button.show {
+		  opacity: 1;
+		  visibility: visible;
+		}
+	</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
 </head>
 <body>
 	<!--navbar-->
@@ -25,7 +70,30 @@
 	  </div>
 	</nav>
 	<!--fine navbar-->
+	
+	<!-- Back to top button -->
+	<a id="button"></a>
+	
+	<!-- script for jquey for botton sroll up-->
+	<script>
+		var btn = $('#button');
 
+		$(window).scroll(function() {
+		  if ($(window).scrollTop() > 300) {
+		    btn.addClass('show');
+		  } else {
+		    btn.removeClass('show');
+		  }
+		});
+
+		btn.on('click', function(e) {
+		  e.preventDefault();
+		  $('html, body').animate({scrollTop:0}, '300');
+		});
+	</script>
+	
+	<!-- beginning of main part-->
+	<div id="main">
 	<h1>Investigating missing DOIs</h1>
 	<br>
 	<div id="intro">
@@ -88,7 +156,6 @@
 			      <small class="text-muted">noo.shahidzadehasadi@studio.unibo.it</small>
 			    </div>
 			  </div>
-			</div>
 			<div class="card">
 			    <img class="card-img-top" src="img/sara_img.jpeg" alt="Card image cap">
 			    <div class="card-body">
@@ -99,12 +166,15 @@
 			      <small class="text-muted">sara.coppini@studio.unibo.it</small>
 			    </div>
 			  </div>
-			</div>
-
 		</div>
 
+	</div>
 
-
+	</div>
+	<!-- closing main div -->
+	
+	<!--Link to the software -->
+	<button type="button" class="btn btn-secondary btn-lg">THE SOFTWARE</button>
 
 	  <!-- Footer -->
 	<footer class="bg-light text-center text-lg-start">
@@ -126,13 +196,12 @@
       <!--Grid column-->
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
         <h5 class="text-uppercase">Useful links</h5>
-        	<a href="">Article</a>
-        	<a href="https://doi.org/10.5281/zenodo.4671486">DMP</a>
-        	<a href="https://dx.doi.org/10.17504/protocols.io.buhjnt4n">Protocol</a>
-        	<a href="https://github.com/open-sci/2020-2021">GitHub repo</a>
-        <p>
-          
-        </p>
+	      <ul>
+        	<li><a href="">Article</a></li>
+        	<li><a href="https://doi.org/10.5281/zenodo.4671486">DMP</a></li>
+        	<li><a href="https://dx.doi.org/10.17504/protocols.io.buhjnt4n">Protocol</a></li>
+        	<li><a href="https://github.com/open-sci/2020-2021">GitHub repo</a></li>
+	      </ul>
       </div>
       <!--Grid column-->
     </div>
