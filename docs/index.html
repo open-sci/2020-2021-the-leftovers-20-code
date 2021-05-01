@@ -7,13 +7,18 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style>
+
+		h1 { text-align: center; }
+
+		h2 { margin: 30px 0px 20px 0px; }
+
 		#main{
 			margin: 40px 80px 40px 80px;
 			text-align:justify;
 		}
 		#button {
 		  display: inline-block;
-		  background-color: #FF9800;
+		  background-color: #302B70;
 		  width: 50px;
 		  height: 50px;
 		  text-align: center;
@@ -47,25 +52,45 @@
 		  opacity: 1;
 		  visibility: visible;
 		}
+
+		#software-div {
+			margin: auto;
+			margin-top: 100px;
+			margin-bottom: 100px;
+			width: fit-content;
+		}
+
+		#white-nav {
+			color: white;
+			font-size: 1.35vw;
+		}
+
+		@media (min-width: 992px) {
+			.navbar-expand-lg .navbar-nav .nav-link {
+			    padding-right: 1rem;
+			    padding-left: 1rem;
+			}
+		}
+
 	</style>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
 </head>
 <body>
 	<!--navbar-->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="#">IMDAP</a>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #302B70;">
+	  <a class="navbar-brand" href="#" id="white-nav" style="font-weight: bold;">IMDAP</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 	    <div class="navbar-nav">
-	      <a class="nav-item nav-link active" href="#intro">Introduction <span class="sr-only">(current)</span></a>
-	      <a class="nav-item nav-link" href="#q1">Responsible Publishers</a>
-	      <a class="nav-item nav-link" href="#q2">Receiving Publishers</a>
-	      <a class="nav-item nav-link" href="#q3">Now Valid Citations</a>
-	      <a class="nav-item nav-link" href="#conclusion">Conclusions</a>
-	      <a class="nav-item nav-link" href="#about">About</a>
+	      <a class="nav-item nav-link" href="#intro" id="white-nav">Introduction <span class="sr-only">(current)</span></a>
+	      <a class="nav-item nav-link" href="#q1" id="white-nav">Responsible Publishers</a>
+	      <a class="nav-item nav-link" href="#q2" id="white-nav">Receiving Publishers</a>
+	      <a class="nav-item nav-link" href="#q3" id="white-nav">Now Valid Citations</a>
+	      <a class="nav-item nav-link" href="#conclusion" id="white-nav">Conclusions</a>
+	      <a class="nav-item nav-link" href="#about" id="white-nav">About</a>
 	    </div>
 	  </div>
 	</nav>
@@ -97,34 +122,49 @@
 	<h1>Investigating missing DOIs</h1>
 	<br>
 	<div id="intro">
-		<p>OpenCitations represents a relevant project inside the Open Science domain, in particular for what concerns the open scholarly citations. Indeed, its capability of conveying a relevant number of (open) citational information allows the creation of a wide net for the scientific community. COCI is the OC's Index of Crossref open DOI-to-DOI citations. All the information collected by OpenCitations and stored in COCI comes from Crossref. However, not all Crossref citations are transferred in COCI: some of them voluntarily, but some others because of technical errors, since their DOI is invalid. Hence, it represents a loss of information not only for OpenCitations but also for the scientific community. Moreover, also the publishers of the article connected to these invalid identifiers are directly affected by this gap from two different perspectives: they can be the direct responsibles for committing the errors which invalidate the DOIs of the cited source, since Crossref does not perform a double-check of the information provided by the publishers; or they can be the publishers of the articles which are wrongly cited and, because of this, they lose all the advantages of being citable (e.g. acknowledgments).</li>
-		</ul>
+		<h2>Introduction</h2>
+		<p>OpenCitations represents a relevant project inside the Open Science domain, in particular for what concerns the open scholarly citations. Indeed, its capability of conveying a relevant number of (open) citational information allows the creation of a wide net for the scientific community. COCI is the OC's Index of Crossref open DOI-to-DOI citations. All the information collected by OpenCitations and stored in COCI comes from Crossref. However, not all Crossref citations are transferred in COCI: some of them voluntarily, but some others because of technical errors, since their DOI is invalid. Hence, it represents a loss of information not only for OpenCitations but also for the scientific community. Moreover, also the publishers of the article connected to these invalid identifiers are directly affected by this gap from two different perspectives: they can be the direct responsibles for committing the errors which invalidate the DOIs of the cited source, since Crossref does not perform a double-check of the information provided by the publishers; or they can be the publishers of the articles which are wrongly cited and, because of this, they lose all the advantages of being citable (e.g. acknowledgments).</p>
+
 		<p>The purpose of this work derives from the research questions that have guided it from the very beginning. They concern:</p>
+
 		<ul>
-		<li>the identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI;</li>
-		<li> the identification of the publishers to which such invalid citations point (i.e. who published the cited articles); </li>
-		<li>the number of currently valid citations among those initially invalid according to our input data.</li>
-		<p>
-			In particular, among the data obtained and collected in the output file, we have selected some more suitable to represent the information found and therefore facilitate its interpretation: </p>
-		<ul>
-		<li>the names and identifiers of the publishers involved in the citations (either as the publishers of the citing DOI or the publisher of the cited DOIs); </li>
-		<li>the numbers of the valid and invalid citations they are responsible for as the publishers of the valid citing DOI; </li>
-		<li>the number of the valid and invalid citations they are involved in as publishers of the cited DOI;</li>
-		<li>the total number of DOIs now valid.</li>
+			<li>the identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI;</li>
+			<li> the identification of the publishers to which such invalid citations point (i.e. who published the cited articles); </li>
+			<li>the number of currently valid citations among those initially invalid according to our input data.</li>
 		</ul>
-		<p>Based on the research questions and hence on the purpose of the project thus defined, the objective of our work is firstly to identify the main publishers involved in these missing citations; and, secondly, patterns of errors and if they could be attributable to certain activities of some publishers; for instance, if the presence of these incorrect DOIs is to attribute exclusively to the incorrect sending of the citational metadata of the publications by the publisher to Crossref. This objective could be translated into another broader objective of making sure that more data can be integrated into COCI by correcting the activities carried out by the publishers that lead to these missing citations and invalid data; or hypothesize a different method of collecting the citational data from publishers that can prevent the insertion of incorrect citational data in platforms such as Crossref.
-		</p>
+		
+
+		<p>In particular, among the data obtained and collected in the output file, we have selected some more suitable to represent the information found and therefore facilitate its interpretation:</p>
+		
+
+		<ul>
+			<li>the names and identifiers of the publishers involved in the citations (either as the publishers of the citing DOI or the publisher of the cited DOIs); </li>
+			<li>the numbers of the valid and invalid citations they are responsible for as the publishers of the valid citing DOI; </li>
+			<li>the number of the valid and invalid citations they are involved in as publishers of the cited DOI;</li>
+			<li>the total number of DOIs now valid.</li>
+		</ul>
+
+		<p>Based on the research questions and hence on the purpose of the project thus defined, the objective of our work is firstly to identify the main publishers involved in these missing citations; and, secondly, patterns of errors and if they could be attributable to certain activities of some publishers; for instance, if the presence of these incorrect DOIs is to attribute exclusively to the incorrect sending of the citational metadata of the publications by the publisher to Crossref. This objective could be translated into another broader objective of making sure that more data can be integrated into COCI by correcting the activities carried out by the publishers that lead to these missing citations and invalid data; or hypothesize a different method of collecting the citational data from publishers that can prevent the insertion of incorrect citational data in platforms such as Crossref.</p>
+
 	</div>
+
 	<div id="q1">
 		<h2>What are the classes of errors that characterised invalid DOIs? </h2>
 	</div>
-	<div id="q2"></div>
+
+	<div id="q2">
 		<h2>Which classes of errors can be addressed through automatic processes so as to get the correct DOIs?</h2>
-	<div id="q3"></div>
-		<h2>How many correct DOIs and, consequently, citations have been obtained by applying such automatic processing?</h2>
-	<div id="conclusion"></div>
-	<div id="about">
+	</div>	
+
+
+
+	<div id="q3">
+		<h2>How many correct DOIs and, consequently, citations have been obtained by applying such automatic processing?</h2>	
+	</div>
 		
+	<div id="conclusion"></div>
+
+	<div id="about">		
 		<div class="card-deck">
 			  <div class="card">
 			    <img class="card-img-top" src="img/alessia_img.jpeg" alt="Card image cap">
@@ -174,7 +214,9 @@
 	<!-- closing main div -->
 	
 	<!--Link to the software -->
-	<button type="button" class="btn btn-secondary btn-lg">THE SOFTWARE</button>
+	<div id="software-div">
+		<button type="button" class="btn btn-secondary btn-lg">THE SOFTWARE</button>
+	</div>
 
 	  <!-- Footer -->
 	<footer class="bg-light text-center text-lg-start">
@@ -196,7 +238,7 @@
       <!--Grid column-->
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
         <h5 class="text-uppercase">Useful links</h5>
-	      <ul>
+	      <ul style="list-style: none; padding: 0;">
         	<li><a href="">Article</a></li>
         	<li><a href="https://doi.org/10.5281/zenodo.4671486">DMP</a></li>
         	<li><a href="https://dx.doi.org/10.17504/protocols.io.buhjnt4n">Protocol</a></li>
