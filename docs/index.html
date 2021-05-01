@@ -73,11 +73,39 @@
 		footer a {
 			color: #dee0e1; 
 		}
+		div#begin {
+		    background-color: #302B70;
+		    color: white;
+		    height: 100vh;
+		}
+		div#head-sec {
+		    padding-top: 20vh;
+		    display: flex;
+		    flex-wrap: wrap;
+		    height: 80vh;
+		    align-content: center;
+		}
+		div#main-text {
+		    flex: 50%;
+		    padding: 5vh;
+		    text-align: justify;
+		}
+		img {
+		    max-width: 50vw;
+		    padding: 5vw;
+		    margin: auto;
+		}
 
 		@media (min-width: 992px) {
 			.navbar-expand-lg .navbar-nav .nav-link {
 			    padding-right: 1rem;
 			    padding-left: 1rem;
+			}
+		}
+		
+		@media (max-width: 600px) {
+			img {
+			    max-width: 80vw;
 			}
 		}
 
@@ -87,7 +115,7 @@
 </head>
 <body>
 	<!--navbar-->
-	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #302B70;">
+	<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #302B70;">
 	  <a class="navbar-brand" href="#" id="white-nav" style="font-weight: bold;">IMDAP</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
@@ -126,9 +154,24 @@
 		});
 	</script>
 	
+	<div id="begin">
+		<!-- beginning of main part-->
+		<div id="head-sec">
+		<div id="main-text">
+	<h1>Investigating missing DOIs</h1>
+	    <p>The purpose of this work derives from the research questions that have guided it from the very beginning. They concern:
+
+	the identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI;
+	the identification of the publishers to which such invalid citations point (i.e. who published the cited articles);
+	the number of currently valid citations among those initially invalid according to our input data.</p>
+	</div>
+	<img src="https://www.seekpng.com/png/detail/928-9281850_free-webinars-with-your-team-team-isometric-illustration.png">
+	    </div>
+		<br>
+	    </div>
+	
 	<!-- beginning of main part-->
 	<div id="main">
-	<h1>Investigating missing DOIs</h1>
 	<br>
 	<div id="intro">
 		<h2>Introduction</h2>
