@@ -1,0 +1,155 @@
+<html>
+<head>
+	<title>Investigating missing DOIs</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+	<!--navbar-->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  <a class="navbar-brand" href="#">IMDAP</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+	    <div class="navbar-nav">
+	      <a class="nav-item nav-link active" href="#intro">Introduction <span class="sr-only">(current)</span></a>
+	      <a class="nav-item nav-link" href="#q1">Responsible Publishers</a>
+	      <a class="nav-item nav-link" href="#q2">Receiving Publishers</a>
+	      <a class="nav-item nav-link" href="#q3">Now Valid Citations</a>
+	      <a class="nav-item nav-link" href="#conclusion">Conclusions</a>
+	      <a class="nav-item nav-link" href="#about">About</a>
+	    </div>
+	  </div>
+	</nav>
+	<!--fine navbar-->
+
+	<h1>Investigating missing DOIs</h1>
+	<br>
+	<div id="intro">
+		<p>OpenCitations represents a relevant project inside the Open Science domain, in particular for what concerns the open scholarly citations. Indeed, its capability of conveying a relevant number of (open) citational information allows the creation of a wide net for the scientific community. COCI is the OC's Index of Crossref open DOI-to-DOI citations. All the information collected by OpenCitations and stored in COCI comes from Crossref. However, not all Crossref citations are transferred in COCI: some of them voluntarily, but some others because of technical errors, since their DOI is invalid. Hence, it represents a loss of information not only for OpenCitations but also for the scientific community. Moreover, also the publishers of the article connected to these invalid identifiers are directly affected by this gap from two different perspectives: they can be the direct responsibles for committing the errors which invalidate the DOIs of the cited source, since Crossref does not perform a double-check of the information provided by the publishers; or they can be the publishers of the articles which are wrongly cited and, because of this, they lose all the advantages of being citable (e.g. acknowledgments).</li>
+		</ul>
+		<p>The purpose of this work derives from the research questions that have guided it from the very beginning. They concern:</p>
+		<ul>
+		<li>the identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI;</li>
+		<li> the identification of the publishers to which such invalid citations point (i.e. who published the cited articles); </li>
+		<li>the number of currently valid citations among those initially invalid according to our input data.</li>
+		<p>
+			In particular, among the data obtained and collected in the output file, we have selected some more suitable to represent the information found and therefore facilitate its interpretation: </p>
+		<ul>
+		<li>the names and identifiers of the publishers involved in the citations (either as the publishers of the citing DOI or the publisher of the cited DOIs); </li>
+		<li>the numbers of the valid and invalid citations they are responsible for as the publishers of the valid citing DOI; </li>
+		<li>the number of the valid and invalid citations they are involved in as publishers of the cited DOI;</li>
+		<li>the total number of DOIs now valid.</li>
+		</ul>
+		<p>Based on the research questions and hence on the purpose of the project thus defined, the objective of our work is firstly to identify the main publishers involved in these missing citations; and, secondly, patterns of errors and if they could be attributable to certain activities of some publishers; for instance, if the presence of these incorrect DOIs is to attribute exclusively to the incorrect sending of the citational metadata of the publications by the publisher to Crossref. This objective could be translated into another broader objective of making sure that more data can be integrated into COCI by correcting the activities carried out by the publishers that lead to these missing citations and invalid data; or hypothesize a different method of collecting the citational data from publishers that can prevent the insertion of incorrect citational data in platforms such as Crossref.
+		</p>
+	</div>
+	<div id="q1">
+		<h2>What are the classes of errors that characterised invalid DOIs? </h2>
+	</div>
+	<div id="q2"></div>
+		<h2>Which classes of errors can be addressed through automatic processes so as to get the correct DOIs?</h2>
+	<div id="q3"></div>
+		<h2>How many correct DOIs and, consequently, citations have been obtained by applying such automatic processing?</h2>
+	<div id="conclusion"></div>
+	<div id="about">
+		
+		<div class="card-deck">
+			  <div class="card">
+			    <img class="card-img-top" src="img/alessia_img.jpeg" alt="Card image cap">
+			    <div class="card-body">
+			      <h5 class="card-title">Alessia Cioffi</h5>
+			      <p class="card-text">Graduated in Classical Literature at the University of Bologna. I'm currently attending the Digital Humanities and Digital Knowledge Master Degree course at the same University.</p>
+			    </div>
+			    <div class="card-footer">
+			      <small class="text-muted">alessia.cioffi@studio.unibo.it</small>
+			    </div>
+			  </div>
+			  <div class="card">
+			    <img class="card-img-top" src="img/arianna_img.jpeg" alt="Card image cap">
+			    <div class="card-body">
+			      <h5 class="card-title">Arianna Moretti</h5>
+			      <p class="card-text">Graduated in Anthropology at the University of Bologna. I'm currently attending the Digital Humanities and Digital Knowledge Master Degree course at the same University.</p>
+			    </div>
+			    <div class="card-footer">
+			      <small class="text-muted">arianna.moretti2@studio.unibo.it</small>
+			    </div>
+			  </div>
+			  <div class="card">
+			    <img class="card-img-top" src="img/nooshin_img.jpeg" alt="Card image cap">
+			    <div class="card-body">
+			      <h5 class="card-title">Nooshin Shahidzadeh Asadi</h5>
+			      <p class="card-text">Graduated in software engineering at the University of Tehran. I'm currently attending the Digital Humanities and Digital Knowledge Master Degree course at the University of Bologna.</p>
+			    </div>
+			    <div class="card-footer">
+			      <small class="text-muted">noo.shahidzadehasadi@studio.unibo.it</small>
+			    </div>
+			  </div>
+			</div>
+			<div class="card">
+			    <img class="card-img-top" src="img/sara_img.jpeg" alt="Card image cap">
+			    <div class="card-body">
+			      <h5 class="card-title">Sara Coppini</h5>
+			      <p class="card-text">Graduated in Philosophy at the University of Bologna. I'm currently attending the Digital Humanities and Digital Knowledge Master Degree course at the same University.</p>
+			    </div>
+			    <div class="card-footer">
+			      <small class="text-muted">sara.coppini@studio.unibo.it</small>
+			    </div>
+			  </div>
+			</div>
+
+		</div>
+
+
+
+
+	  <!-- Footer -->
+	<footer class="bg-light text-center text-lg-start">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Credits</h5>
+
+        <p>
+          LIBRERIE JS
+          LIBRERIE BOOTSTRAP
+        </p>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Useful links</h5>
+        	<a href="">Article</a>
+        	<a href="https://doi.org/10.5281/zenodo.4671486">DMP</a>
+        	<a href="https://dx.doi.org/10.17504/protocols.io.buhjnt4n">Protocol</a>
+        	<a href="https://github.com/open-sci/2020-2021">GitHub repo</a>
+        <p>
+          
+        </p>
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2020 Copyright:
+    <a class="text-dark" href="https://orcid.org/0000-0002-9812-4065">Alessia Cioffi</a>, 
+    <a class="text-dark" href="https://orcid.org/0000-0001-5486-7070">Arianna Moretti</a>, 
+    <a class="text-dark" href="https://orcid.org/0000-0003-4114-074X">Nooshin Shahidzadeh Asadi</a>, 
+    <a class="text-dark" href="https://orcid.org/0000-0002-6279-3830">Sara Coppini</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+	  <!-- Footer -->
+</body>
+</html>
