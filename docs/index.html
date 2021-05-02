@@ -6,13 +6,17 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
 	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<!--
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style>
+
+		span {
+			margin-bottom: 50px;
+			height: 25px;
+			width: 50px;
+			display: block;
+		}
 
 		table#tab_citing th, table#tab_cited th {
 			background-color: white;
@@ -228,7 +232,9 @@
 	<!-- beginning of main part-->
 	<div id="main">
 	<br>
-	<div id="intro">
+
+		<span id="intro"></span>
+	<div>
 		<h2>Introduction</h2>
 		<p>OpenCitations represents a relevant project inside the Open Science domain, in particular for what concerns the open scholarly citations. Indeed, its capability of conveying a relevant number of (open) citational information allows the creation of a wide net for the scientific community. COCI is the OC's Index of Crossref open DOI-to-DOI citations. All the information collected by OpenCitations and stored in COCI comes from Crossref. However, not all Crossref citations are transferred in COCI: some of them voluntarily, but some others because of technical errors, since their DOI is invalid. Hence, it represents a loss of information not only for OpenCitations but also for the scientific community. Moreover, also the publishers of the article connected to these invalid identifiers are directly affected by this gap from two different perspectives: they can be the direct responsibles for committing the errors which invalidate the DOIs of the cited source, since Crossref does not perform a double-check of the information provided by the publishers; or they can be the publishers of the articles which are wrongly cited and, because of this, they lose all the advantages of being citable (e.g. acknowledgments).</p>
 
@@ -254,9 +260,10 @@
 		<p>Based on the research questions and hence on the purpose of the project thus defined, the objective of our work is firstly to identify the main publishers involved in these missing citations; and, secondly, patterns of errors and if they could be attributable to certain activities of some publishers; for instance, if the presence of these incorrect DOIs is to attribute exclusively to the incorrect sending of the citational metadata of the publications by the publisher to Crossref. This objective could be translated into another broader objective of making sure that more data can be integrated into COCI by correcting the activities carried out by the publishers that lead to these missing citations and invalid data; or hypothesize a different method of collecting the citational data from publishers that can prevent the insertion of incorrect citational data in platforms such as Crossref.</p>
 
 	</div>
-		  
 
-	<div id="q1">
+
+		<span id="q1"></span>
+	<div>
 		<h2>Which publishers were responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI?</h2>
 
 		<p>explaination of the question and the data</p>
@@ -443,7 +450,8 @@
 
 	</div>
 
-	<div id="q2">
+		<span id="q2"></span>
+	<div>
 		<h2>To which publishers did such invalid citations point to (i.e. who published the cited articles)?</h2>
 
 		<p>explaination of the question and the data</p>
@@ -628,9 +636,10 @@
 
 		</script>
 
-	</div>	
+	</div>
 
-	<div id="q3">
+		<span id="q3"></span>
+	<div>
 		<h2>How many invalid citations are currently valid?</h2>
 
 		<div id="pie_chart"></div>
@@ -768,12 +777,14 @@
 
 
 	</div>
-		
-	<div id="conclusion">
+
+		<span id="conclusion"></span>
+	<div>
 		<h2>Conclusions</h2>
 	</div>
 
-	<div id="about">
+		<span id="about"></span>
+	<div>
 		<h2>About</h2>
 		<div class="card-deck">
 			  <div class="card">
