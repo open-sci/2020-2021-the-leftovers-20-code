@@ -1,6 +1,9 @@
 <html>
 <head>
 	<title>Investigating missing DOIs</title>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
 	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<!--
@@ -10,6 +13,17 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style>
+
+		canvas{
+			width:90vw !important;
+			margin-left: -8vw;
+		}
+
+		#pie_chart {
+			-webkit-filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.3) );
+			filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.25) );
+			margin: auto;
+		}
 
 		h1 { text-align: center; }
 
@@ -252,6 +266,10 @@
 			</table>
 		</div>
 
+		<div id="container-chartjs">
+			<canvas id="bar-chartjs" style="width: 90vw !important;"></canvas>
+		</div>
+
 		<script>
 			var data = jQuery.getJSON('output_read_only_new.json', function(json) {
 				var keys = [];
@@ -317,6 +335,78 @@
 				array_of_dict.sort(function(a,b) {
 					return b.total - a.total
 				});
+
+				const ctx = document.getElementById("bar-chartjs").getContext("2d");
+
+				var valid_cit = array_of_dict.map(function (d) {
+					return d.valid_citing;
+				});
+
+				var invalid_cit = array_of_dict.map(function (d) {
+					return d.invalid_citing;
+				});
+
+				var pubs = array_of_dict.map(function (d) {
+					return d.publisher;
+				});
+
+
+				var stackedChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: pubs,
+						datasets: [
+							{
+								label: 'invalid citing',
+								data: invalid_cit,
+								backgroundColor: '#6b5da9' // yellow
+							},
+							{
+								label: 'valid citing', //per noi è invalid o valid
+								data: valid_cit, // per noi è il numero, cioè il valore di valid o invalid
+								backgroundColor: '#35037a' // green
+							}
+
+						],
+
+					},
+					options: {
+						responsive: true,
+						scales: {
+							xAxes: [{
+								stacked: true,
+								ticks: {
+									autoSkip: false
+								}
+							}],
+							yAxes: [{
+								stacked: true,
+								/*type: 'logarithmic',
+                                ticks: {
+                                    min: 1, //minimum tick
+                                    max: 45000, //maximum tick
+                                    callback: function (value, index, values) {
+                                        return Number(value.toString());//pass tick values as a string into Number function
+                                    }
+                                },
+                                afterBuildTicks: function (chartObj) { //Build ticks labelling as per your need
+                                    chartObj.ticks = [];
+                                    chartObj.ticks.push(1);
+                                    chartObj.ticks.push(10);
+                                    chartObj.ticks.push(100);
+                                    chartObj.ticks.push(1000);
+                                    chartObj.ticks.push(3000);
+                                    chartObj.ticks.push(6000);
+                                    chartObj.ticks.push(10000);
+                                    chartObj.ticks.push(20000);
+                                    chartObj.ticks.push(30000);
+                                    chartObj.ticks.push(45000);
+                                }*/
+							}]
+						}
+					}
+				});
+
 			})
 		</script>
 
@@ -338,6 +428,10 @@
 					<th>total cited</th>
 				</tr>
 			</table>
+		</div>
+
+		<div id="container-chartjs-cited">
+			<canvas id="bar-chartjs-cited" style="width: 90vw !important;"></canvas>
 		</div>
 
 		<script type="text/javascript">
@@ -404,6 +498,79 @@
 				array_of_dict.sort(function(a,b) {
 					return b.total - a.total
 				});
+
+				const ctx = document.getElementById("bar-chartjs-cited").getContext("2d");
+
+				var valid_cit = array_of_dict.map(function (d) {
+					return d.valid_cited;
+				});
+
+				var invalid_cit = array_of_dict.map(function (d) {
+					return d.invalid_cited;
+				});
+
+				var pubs = array_of_dict.map(function (d) {
+					return d.publisher;
+				});
+
+
+				var stackedChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: pubs,
+						datasets: [
+							{
+								label: 'invalid cited',
+								data: invalid_cit,
+								backgroundColor: 'rgba(75,116,198,0.7)'
+							},
+							{
+								label: 'valid cited', //per noi è invalid o valid
+								data: valid_cit, // per noi è il numero, cioè il valore di valid o invalid
+								backgroundColor: 'rgba(0,34,100,0.7)'
+							}
+
+						],
+
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						scales: {
+							xAxes: [{
+								stacked: true,
+								ticks: {
+									autoSkip: false
+								}
+							}],
+							yAxes: [{
+								stacked: true,
+								/*type: 'logarithmic',
+                                ticks: {
+                                    min: 1, //minimum tick
+                                    max: 45000, //maximum tick
+                                    callback: function (value, index, values) {
+                                        return Number(value.toString());//pass tick values as a string into Number function
+                                    }
+                                },
+                                afterBuildTicks: function (chartObj) { //Build ticks labelling as per your need
+                                    chartObj.ticks = [];
+                                    chartObj.ticks.push(1);
+                                    chartObj.ticks.push(10);
+                                    chartObj.ticks.push(100);
+                                    chartObj.ticks.push(1000);
+                                    chartObj.ticks.push(3000);
+                                    chartObj.ticks.push(6000);
+                                    chartObj.ticks.push(10000);
+                                    chartObj.ticks.push(20000);
+                                    chartObj.ticks.push(30000);
+                                    chartObj.ticks.push(45000);
+                                }*/
+							}]
+						}
+					}
+				});
+
 			})
 
 		</script>
