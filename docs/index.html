@@ -14,6 +14,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style>
 
+		table#tab_citing th, table#tab_cited th {
+			background-color: white;
+			position: sticky;
+			top: 0;
+		}
+
+		table {border-collapse: initial !important;}
+
 		canvas{
 			width:90vw !important;
 			margin-left: -8vw;
@@ -253,7 +261,7 @@
 
 		<p>explaination of the question and the data</p>
 
-		<input type="text" id="input-p" onkeyup="searchPublisher()" placeholder="Search for publishers.." title="Type in a name">
+		<input type="text" id="input-p" onkeyup="searchPublisherr()" placeholder="Search for publishers.." title="Type in a name">
 
 		<div id="scroll">
 			<table id="tab_citing" class="table">
@@ -407,7 +415,30 @@
 					}
 				});
 
-			})
+			});
+
+			// search bar
+
+			function searchPublisherr() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("input-p");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("tab_citing");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}
+				}
+			};
+
+
 		</script>
 
 	</div>
@@ -572,6 +603,28 @@
 				});
 
 			})
+
+
+			// search bar
+
+			function searchPublisher() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("input-pp");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("tab_cited");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}
+				}
+			}
 
 		</script>
 
