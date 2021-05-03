@@ -44,7 +44,8 @@ Authors' response to the reviews:
 
 
 ### Protocol introducing the methodology
-<<Bibliographic reference in APA style of the last version>>
+Sara Coppini, Nooshin Shahidzadeh, Alessia Cioffi, Arianna Moretti 2021. Investigating Invalid DOIs in COCI - Protocol. protocols.io
+https://dx.doi.org/10.17504/protocols.io.buqhnvt6
 
 Reviews of the [Nooshin Shahidzadeh, Alessia Cioffi, Arianna Moretti, Sara Coppini 2021. Investigating Invalid DOIs in COCI. protocols.io](https://dx.doi.org/10.17504/protocols.io.bt5xnq7n):
 * Arcangelo Massari. (2021). Review of: "Investigating Invalid DOIs in COCI". Qeios. doi:10.32388/X2DX81.
@@ -55,7 +56,7 @@ Authors' response to the reviews:
 
 
 ### Software developed
-<<Bibliographic reference in APA style of the last version>>
+Sara Coppini, Arianna Moretti, Alessia Cioffi, Nooshin Shahidzadeh Asadi, & Silvio Peroni. (2021, May 3). open-sci/2020-2021-the-leftovers-20-code: Investigating Missing Citations in COCI (Version v1.0.0). Zenodo. http://doi.org/10.5281/zenodo.4735621
 
 
 ### The data gathered while running the methodology
@@ -63,7 +64,7 @@ Authors' response to the reviews:
 
 
 ### Article presenting the research
-<<Bibliographic reference in APA style of the last version>>
+Cioffi, Alessia, Coppini, Sara, Moretti, Arianna, & Shahidzadeh Asadi, Nooshin. (2021, May 3). Investigating missing citations in COCI and publishers involved (Version First). Zenodo. http://doi.org/10.5281/zenodo.4735636
 
 
 ### Slides supporting the presentation
