@@ -166,14 +166,14 @@
 			margin-bottom: 120px;
 		}
 
-		@media (min-width: 992px) {
+		@media screen and (min-width: 992px) {
 			.navbar-expand-lg .navbar-nav .nav-link {
 			    padding-right: 1rem;
 			    padding-left: 1rem;
 			}
 		}
 		
-		@media (max-width: 600px) {
+		@media screen and (max-width: 600px) {
 			img {
 			    max-width: 80vw;
 			}
@@ -181,7 +181,7 @@
 			    font-size: 1.4rem;
 			}
 		}
-		@media (max-width: 800px) {
+		@media screen and (max-width: 800px) {
 			.flex-row{
 				flex-direction: column !important;
 			}
@@ -445,29 +445,25 @@
 					},
 					options: {
 						responsive: true,
+						/*maintainAspectRatio:false,*/
 						scales: {
 							xAxes: [{
 								stacked: true,
 								ticks: {
 									autoSkip: false
-								},
+								}
 							}],
 							yAxes: [{
 								stacked: true
 							}]
-						},
-						labels:{
-							font:function(context) {
-					                var width = context.chart.width;
-					                var size = Math.round(width / 32);
-
-					                return {
-					                    weight: 'bold',
-					                    size: size
-					                };
-					            }
 						}
-					}
+					},
+					/*plugins: [{
+					   beforeDraw: function(c) {
+					      var chartWidth = c.chart.width;
+					      c.scales['y-axis-0'].options.ticks.fontSize = chartWidth * 2 / 100;
+					   }
+					}]*/
 				});
 
 			});
