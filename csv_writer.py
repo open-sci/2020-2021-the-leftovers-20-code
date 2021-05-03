@@ -3,7 +3,18 @@ import csv
 import os
 
 """
-write_to_csv function is focused on the creation of the ancillary csv files where the intermediate results obtained are temporarily saved, in order to limitate the possibility of losing the already processed data, in the case some problem occurs during the code run.  As the first step, the existence in the local directory of “correct_dois.csv” and “incorrect_dois.csv” files is verified. In the case the aforementioned files do not exist, they are then created, and their first row is filled with the names of the two columns, i.e.: 'Valid_citing_doi' and 'Invalid_cited_doi'. The two CSV files are then opened and respectively compiled by using the data stored respectively in correct_dois_data and incorrect_dois_data. At this point, the two lists correct_dois_data and incorrect_dois_data are emptied.  The following step implies opening in write mode publisher_data.csv, assigning the following headers: 'name', 'responsible_for_v', 'responsible_for_i', 'receiving_v', 'receiving_i', and filling the rows with the data derived from the publisher_data dictionary.  Eventually, “prefix_name.json” file is opened in write mode, and it is filled with prefix_to_name_dict values. 
+This part of the code is aimed at limiting the possibility of losing the already processed data, 
+in the case some problem occurs during the code run.  As the first step, the existence in the 
+local directory of “correct_dois.csv” and “incorrect_dois.csv” files is verified. In the case 
+the aforementioned files do not exist, they are then created, and their first row is filled with 
+the headers of the two columns, i.e.: 'Valid_citing_doi' and 'Invalid_cited_doi'. The two CSV 
+files are then opened and respectively compiled by using the data stored in correct_dois_data 
+and incorrect_dois_data. The following step implies opening in write mode the 
+“publisher_data.csv” file and assigning the following headers: 'name', 'responsible_for_v', 
+'responsible_for_i', 'receiving_v', 'receiving_i'. The rows are then filled with the data 
+derived from the publisher_data dictionary.  Eventually, “prefix_name.json” file is opened 
+in write mode and accordingly filled with prefix_to_name_dict values. 
+
 """
 
 
