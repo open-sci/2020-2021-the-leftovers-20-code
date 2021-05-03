@@ -7,42 +7,37 @@ from publishers import extract_publishers_valid, extract_publishers_invalid
 from output_creator import create_output
 
 """
-The input csv file is opened in “read” modality. Then, two dictionaries and two lists are created.
-Here are listed their functions and organization: 
+The input csv file is opened and the following data structures are created: 
+1) publisher_data dictionary, aimed at storing dictionaries representing each publisher encountered;
+2) correct_dois_data list, aimed at storing citational data validated throughout the process;
+3) incorrect_dois_data list, aimed at storing citational data which could not be validated.
 
-1) publisher_data: This structure is projected to be a dictionary whose keys are the strings of the publishers’ names, 
-while the values are other dictionaries storing information about each publisher. In detail, each publisher’s dictionary 
-contains the following key-value pairs: "name": whose value is the string of the publisher’s name, "responsible_for_v": 
-whose value is an integer number representing the number of  validated citational data of which the publisher is 
-responsible for, "responsible_for_i": whose value is an integer number representing the number of  still invalid 
-citational data of which the publisher is responsible for, "receiving_v": whose value is an integer number representing 
-the number of validated citational data where the publisher is associated with the referenced DOI, "receiving_i": whose 
-value is an integer number representing the number of  still invalid citational data where the publisher is associated 
-with the referenced DOI, “prefix_list” : whose value is a list containing the prefixes associated with the publisher.
- 
-2) prefix_to_name_dict: This structure’s function is that of storing as key-value pairs prefixes and strings of the 
-names of the publishers. The focus of this dictionary is providing a locally-stored mapping of all the prefixes already 
-processed, in order to avoid redundant API requests to identify publishers.
+Then, two variables (i.e. : start_index and prefix_to_name_dict) are assigned the values 
+returned by the function extract_row_number(publisher_data), aimed at keeping track of 
+the lines of input material already processed. A recovery mechanism based on the creation 
+of ancillary files provides the possibility to overcome potential interruptions of the 
+process by restarting the code run from the last line of the input csv file whose data 
+was successfully retrieved. 
 
-3) correct_dois_data: This list is meant to store validated citational data as dictionaries containing two key-value 
-pairs, one representing the citing DOI and the other representing the referenced DOI. 
+Accordingly, the software can work on a sliced amount of the input material. 
+The input file is read with a csv reader and iterated row by row. 
+In this for loop, for each row processed, the validity of the receiving Digital Object 
+Identifier is checked through an API request. In the case the request is successful, 
+the citational data is appended to the list of validated citations (i.e.: correct_dois_data), 
+and the publisher identification for both citing and cited doi proceeds with the execution 
+of extract_publishers_valid(row, publisher_data, prefix_to_name_dict). 
+Otherwise, the citational data is appended to the incorrect_dois_data list and the 
+publishers’ identification is managed with the correspective function for invalid 
+citational data, i.e.: extract_publishers_invalid(row, publisher_data, prefix_to_name_dict). 
+In case of a connection error, an exception is raised. 
 
-4) incorrect_dois_data: This list shares the very same role of correct_dois_data, but for citational data which could 
-not be validated during the process, which are thus still invalid.
- 
-Since the main process is structured as a for loop, a start index (start_index) is identified through a function 
-allowing the count of the already processed citational data, so that only the remaining slice of the original file can 
-be read and processed. As a security guarantee in a long process of execution, each hundred rows of the input csv file 
-processed, the results are saved in the cache files.
-In this for loop, for each row processed, the validity of the receiving Digital Object Identifier is checked through an 
-API request. In the case the request is successful, the citational data is appended to correct_dois_data and the 
-publishers identification proceeds with the execution of the extract_publishers_valid(row) function; otherwise, the 
-citational data is appended to incorrect_dois_data list and the publishers’ identification is managed with 
-extract_publishers_invalid(row).
- 
-In case of a connection error, an exception is risen. 
-Once all the lines of the original input file have been processed, the write_to_csv() function for cache files 
-compilation is called again, and the function to create the output file is executed. 
+Every hundred lines processed, the function write_to_csv(publisher_data, prefix_to_name_dict, 
+correct_dois_data, incorrect_dois_data) is executed and the lists correct_dois_data and 
+incorrect_dois_data are emptied, so as to save the processed material in files conceived for this purpose.
+Once all the lines of the original input file have been processed, the write_to_csv(publisher_data, 
+prefix_to_name_dict, correct_dois_data, incorrect_dois_data) function for cache files compilation 
+is called for the last time, and then the function to create the output file is executed. 
+
 """
 
 if __name__ == '__main__':
