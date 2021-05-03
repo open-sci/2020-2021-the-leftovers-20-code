@@ -47,7 +47,10 @@
 			letter-spacing: 2px;
 		}
 
-		h2 { margin: 30px 0 20px 0; }
+		h2 { 
+			margin: 30px 0 20px 0; 
+			padding-top: 7vh;
+		}
 
 		#main{
 			margin: 40px 80px 40px 80px;
@@ -132,6 +135,14 @@
 		    max-width: 50vw;
 		    padding: 5vw;
 		    margin: auto;
+		}
+		.p-2{
+			text-align: justify;
+			padding: 5vw;
+		}
+		.p-2 p, .p-2 li{
+			padding-left: 5vw;
+			padding-right: 5vw;
 		}
 		.p-4 {
 		    padding-top: 1.5rem!important;
@@ -282,14 +293,14 @@
 		<p>The purpose of this work derives from the research questions that have guided it from the very beginning. They concern:</p>
 
 		<ul>
-			<li>the identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI;</li>
-			<li> the identification of the publishers to which such invalid citations point (i.e. who published the cited articles); </li>
-			<li>the number of currently valid citations among those initially invalid according to our input data.</li>
+			<li>The identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI;</li>
+			<li>The identification of the publishers to which such invalid citations point (i.e. who published the cited articles); </li>
+			<li>The number of currently valid citations among those initially invalid according to our input data.</li>
 		</ul>
 		</div>
 
 		<div class="p-2" id="center-img">
-		<img src="img/team.png">
+		<img src="https://static.vecteezy.com/system/resources/previews/001/869/216/non_2x/people-with-teamwork-icon-design-free-vector.jpg">
 		</div>
 	</div>
 
@@ -297,7 +308,7 @@
 		<!-- <div id="intro-sec">-->
 	<div class="d-flex flex-row">
 		<div class="p-2" id="revert-img">
-			<img src="img/team.png">
+			<img src="https://static.vecteezy.com/system/resources/previews/001/869/978/non_2x/avatar-men-with-teamwork-icon-design-free-vector.jpg">
 		</div>
 			<!-- <div id="main-text"> -->
 		<div class="p-2" id="revert-p">
@@ -305,10 +316,10 @@
 		
 
 		<ul>
-			<li>the names and identifiers of the publishers involved in the citations (either as the publishers of the citing DOI or the publisher of the cited DOIs); </li>
-			<li>the numbers of the valid and invalid citations they are responsible for as the publishers of the valid citing DOI; </li>
-			<li>the number of the valid and invalid citations they are involved in as publishers of the cited DOI;</li>
-			<li>the total number of DOIs now valid.</li>
+			<li>The names and identifiers of the publishers involved in the citations (either as the publishers of the citing DOI or the publisher of the cited DOIs); </li>
+			<li>The numbers of the valid and invalid citations they are responsible for as the publishers of the valid citing DOI; </li>
+			<li>The number of the valid and invalid citations they are involved in as publishers of the cited DOI;</li>
+			<li>The total number of DOIs now valid.</li>
 		</ul>
 
 		<p>Based on the research questions and hence on the purpose of the project thus defined, the objective of our work is firstly to identify the main publishers involved in these missing citations; and, secondly, patterns of errors and if they could be attributable to certain activities of some publishers; for instance, if the presence of these incorrect DOIs is to attribute exclusively to the incorrect sending of the citational metadata of the publications by the publisher to Crossref. This objective could be translated into another broader objective of making sure that more data can be integrated into COCI by correcting the activities carried out by the publishers that lead to these missing citations and invalid data; or hypothesize a different method of collecting the citational data from publishers that can prevent the insertion of incorrect citational data in platforms such as Crossref.</p>
@@ -456,7 +467,12 @@
 							yAxes: [{
 								stacked: true
 							}]
-						}
+						},
+			            title: {
+			                display: true,
+			                text: 'Stacked Bar Chart with invalid and valid citing publishers',
+			                fontSize:30
+			            }
 					},
 					/*plugins: [{
 					   beforeDraw: function(c) {
@@ -630,29 +646,14 @@
 							}],
 							yAxes: [{
 								stacked: true
-								/*type: 'logarithmic',
-                                ticks: {
-                                    min: 1, //minimum tick
-                                    max: 45000, //maximum tick
-                                    callback: function (value, index, values) {
-                                        return Number(value.toString());//pass tick values as a string into Number function
-                                    }
-                                },
-                                afterBuildTicks: function (chartObj) { //Build ticks labelling as per your need
-                                    chartObj.ticks = [];
-                                    chartObj.ticks.push(1);
-                                    chartObj.ticks.push(10);
-                                    chartObj.ticks.push(100);
-                                    chartObj.ticks.push(1000);
-                                    chartObj.ticks.push(3000);
-                                    chartObj.ticks.push(6000);
-                                    chartObj.ticks.push(10000);
-                                    chartObj.ticks.push(20000);
-                                    chartObj.ticks.push(30000);
-                                    chartObj.ticks.push(45000);
-                                }*/
 							}]
-						}
+						},
+			            title: {
+			                display: true,
+			                text: 'Stacked Bar Chart with invalid and valid cited publishers',
+			                fontSize:30,
+			                paddingBottom:100
+			            }
 					}
 				});
 
@@ -715,7 +716,7 @@
 						.attr("width", width)
 						.attr("height", height)
 						.append("g")
-						.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+						.attr("transform", "translate(" + width / 2 + "," + height / 2.5 + ")");
 
 
 				// set the color scale
