@@ -1,4 +1,4 @@
-# Material - team <<name of the team>>
+# Material - team The Leftovers 2.0
 
 ## Members
 [Alessia Cioffi](https://github.com/Alessia438), roles:
