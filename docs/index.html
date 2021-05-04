@@ -358,7 +358,7 @@
 		</div>
 
 		<p class="p-text">The following visualization is built upon the twenty most relevant publishers retrieved in our analysis, with respect to both the number of addressed and received citations. First, it is noted that there is only one publisher whose number of articles with citing DOIs is significantly greater than all the others, and that is Ovid Technologies (Wolters Kluwer Health). Other significant publishers for the numbers of citing DOIs are: Springer Science and Business Media LLC, Association for Computing Machinery (ACM), Informa UK Limited and Wiley. As for the other publishers, the number of citing DOIs of which they are publishers is between considerably lower figures: between 1000 DOIs and 15000 DOIs approximately. In the second place, at least for what concerns these selected publishers, the number of citing DOIs of now valid citations - after the DOI API request - is distributed only among a few publishers.</p>
-
+		<p><i>(over with the mouse the bars to see the exact number of valid/invalid citations)</i></p>
 		<div id="container-chartjs">
 			<canvas id="bar-chartjs" style="width: 90vw !important; padding-left: 5vw;"></canvas>
 		</div>
@@ -540,7 +540,7 @@
 		</div>
 
 		<p class="p-text">The following visualization shows similar results to those shown for the previous research question. Firstly, Ovid Technologies (Wolters Kluwer Health) is still the publisher with the significantly higher number of DOIs cited than the other publishers. Other significant publishers for the numbers of citing DOIs are: Test accounts, Springer Science and Business Media LLC, Wiley and Elsevier BV. As for the data collected to answer this second research question, the numbers are slightly smaller: around the forty-one thousand DOIs mentioned for the first publisher, while the number for most of the others is concentrated between fourteen thousand and sixteen hundred. Secondly, also in this case, the number of DOIs mentioned validated with the DOI API request are concentrated among a few selected publishers.</p>
-
+		<p><i>(hover with the mouse the bars to see the exact number of valid/invalid citations)</i></p>
 		<div id="container-chartjs-cited">
 			<canvas id="bar-chartjs-cited" style="width: 90vw !important; padding-left: 5vw;"></canvas>
 		</div>
@@ -701,6 +701,7 @@
 		<h2>How many invalid citations are currently valid?</h2>
 		<p style="text-align: justify;">
 		The aim of this question was that of understanding in how many cases the invalidity of the DOIs was due not to the publisher's wrongly provided information to Crossref, but because of external reasons, e.g. because of the lack of information about the cited article, in the moment of the check before the eventual inclusion in COCI. As the results have pointed out, and as it is shown in the graph above, the actual number of citations validated between the OpenCitations check and the current moment, is really low. Indeed only 7.6% of the citations have been validated while the remaining data is still invalid. Thus, even if we cannot say with certainty whether the fault for these missing citations is due to the publisher or to other external reasons, these results clearly show that those reasons which invalidated the citations during the COCI check, still persist. </p>
+		<p style="text-align: justify;"><i>(hover with the mouse the arches to see the total number of valid/invalid citations)</i></p>
 		<div id="pie_chart"></div>
 
 		<script>
