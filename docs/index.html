@@ -14,8 +14,8 @@
 	<style>
 
 		span {
-			margin-bottom: 50px;
-			height: 25px;
+			margin-bottom: 25px;
+			height: 100px;
 			width: 50px;
 			display: block;
 		}
@@ -48,8 +48,13 @@
 		}
 
 		h2 { 
-			margin: 30px 0 20px 0; 
-			padding-top: 7vh;
+			margin: 50px 0 35px 0; 
+			/*padding-top: 7vh;*/
+			text-align: center;
+			/*text-decoration: underline;*/
+		}
+		hr{
+			background-color: black;
 		}
 
 		#main{
@@ -330,6 +335,7 @@
 
 
 		<span id="q1"></span>
+		<hr>
 	<div>
 		<h2>Which publishers were responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI?</h2>
 
@@ -511,6 +517,7 @@
 	</div>
 
 		<span id="q2"></span>
+		<hr>
 	<div>
 		<h2>To which publishers did such invalid citations point to (i.e. who published the cited articles)?</h2>
 
@@ -686,9 +693,11 @@
 	</div>
 
 		<span id="q3"></span>
-	<div>
+		<hr>
+	<div style="text-align: center;">
 		<h2>How many invalid citations are currently valid?</h2>
-		<p class="p-text">Text for the results of the third question</p>
+		<p style="text-align: justify;">
+		The aim of this question was that of understanding in how many cases the invalidity of the DOIs was due not to the publisher's wrongly provided information to Crossref, but because of external reasons, e.g. because of the lack of information about the cited article, in the moment of the check before the eventual inclusion in COCI. As the results have pointed out, and as it is shown in the graph above, the actual number of citations validated between the OpenCitations check and the current moment, is really low. Indeed only 7.6% of the citations have been validated while the remaining data is still invalid. Thus, even if we cannot say with certainty whether the fault for these missing citations is due to the publisher or to other external reasons, these results clearly show that those reasons which invalidated the citations during the COCI check, still persist. </p>
 		<div id="pie_chart"></div>
 
 		<script>
@@ -826,12 +835,22 @@
 	</div>
 
 		<span id="conclusion"></span>
+	<hr>
 	<div>
 		<h2>Conclusions</h2>
+		<p>The results have shown two major points: </p>
+		<ol>
+		<li>only a few publishers have a high number of invalid citations, of resources either citing or cited, while most of the remaining publishers flattens around small values.</li>
+		<li>only a small part of the previously invalid citations have successively become valid, and that, therefore, the issues that characterized the previously invalid DOIs are still present.</li>
+		</ol>  
+<p>The results of the project could be applied to the more general research area of COCI and OpenCitations, as well as the other projects that deal with open citational data. Indeed, this could make sure that more data can be integrated into COCI by grasping the issue of invalid DOIs at the root, therefore not correcting the invalid DOIs already collected, but correcting the activities carried out by the publishers that lead to these missing citations and invalid data; or hypothesize a different method of collecting the citational data from publishers that can prevent the insertion of incorrect citational data in platforms such as Crossref. Further improvements, concerning the recognition and correction of the errors affecting the prefixes, may lead to a broader comprehension of the world of the publishers related to the invalid DOIs, by adding to the research all the DOIs that, for this reason, could not be inserted in the final computations.</p>
 	</div>
+	
 
 		<span id="about"></span>
+		<hr>
 	<div>
+		
 		<h2>About</h2>
 		<div class="card-deck">
 			  <div class="card">
