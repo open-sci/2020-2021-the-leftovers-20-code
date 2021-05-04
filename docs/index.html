@@ -13,6 +13,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600&display=swap" rel="stylesheet">
 	<style>
 
+		footer a { text-decoration: underline; }
+
 		span {
 			margin-bottom: 25px;
 			height: 100px;
@@ -339,7 +341,8 @@
 	<div>
 		<h2>Which publishers were responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI?</h2>
 
-		<p class="p-text">explaination of the question and the data</p>
+		<p class="p-text">To answer this research question, we identified both the names of the publishers responsible for the invalid citations - i.e., the publishers of the valid citing DOIs - and the total number of citing DOIs for each publisher, both those that remained invalid even after the DOI API request and those that became valid. This distinction is useful for outline if there are some publishers more than others whose citations in which they appeared as publisher of the citers were then validated.</p>
+		<p>Starting from the approach of choosing to retrieve this type of additional information as well, the resulting data turned out to be particularly interesting.</p>
 
 		<input type="text" id="input-p" onkeyup="searchPublisherr()" placeholder="Search for publishers.." title="Type in a name">
 
@@ -354,7 +357,7 @@
 			</table>
 		</div>
 
-		<p class="p-text">explaination of the chart</p>
+		<p class="p-text">The following visualization is built upon the twenty most relevant publishers retrieved in our analysis, with respect to both the number of addressed and received citations. First, it is noted that there is only one publisher whose number of articles with citing DOIs is significantly greater than all the others, and that is Ovid Technologies (Wolters Kluwer Health). Other significant publishers for the numbers of citing DOIs are: Springer Science and Business Media LLC, Association for Computing Machinery (ACM), Informa UK Limited and Wiley. As for the other publishers, the number of citing DOIs of which they are publishers is between considerably lower figures: between 1000 DOIs and 15000 DOIs approximately. In the second place, at least for what concerns these selected publishers, the number of citing DOIs of now valid citations - after the DOI API request - is distributed only among a few publishers.</p>
 
 		<div id="container-chartjs">
 			<canvas id="bar-chartjs" style="width: 90vw !important; padding-left: 5vw;"></canvas>
@@ -462,7 +465,7 @@
 					},
 					options: {
 						responsive: true,
-						/*maintainAspectRatio:false,*/
+						maintainAspectRatio:false,
 						scales: {
 							xAxes: [{
 								stacked: true,
@@ -521,7 +524,7 @@
 	<div>
 		<h2>To which publishers did such invalid citations point to (i.e. who published the cited articles)?</h2>
 
-		<p class="p-text">explaination of the question and the data</p>
+		<p class="p-text">The visualization for this second research question and the data upon which it is constructed are referring only to the twenty most relevant publishers. The methodology and the approach followed for this part of the research correspond to those declared for the first part, while the citational data we have considered refer to the publishers of the cited articles.</p>
 
 		<input type="text" id="input-pp" onkeyup="searchPublisher()" placeholder="Search for publishers.." title="Type in a name">
 
@@ -536,7 +539,7 @@
 			</table>
 		</div>
 
-		<p class="p-text">explaination of the chart</p>
+		<p class="p-text">The following visualization shows similar results to those shown for the previous research question. Firstly, Ovid Technologies (Wolters Kluwer Health) is still the publisher with the significantly higher number of DOIs cited than the other publishers. Other significant publishers for the numbers of citing DOIs are: Test accounts, Springer Science and Business Media LLC, Wiley and Elsevier BV. As for the data collected to answer this second research question, the numbers are slightly smaller: around the forty-one thousand DOIs mentioned for the first publisher, while the number for most of the others is concentrated between fourteen thousand and sixteen hundred. Secondly, also in this case, the number of DOIs mentioned validated with the DOI API request are concentrated among a few selected publishers.</p>
 
 		<div id="container-chartjs-cited">
 			<canvas id="bar-chartjs-cited" style="width: 90vw !important; padding-left: 5vw;"></canvas>
@@ -838,12 +841,13 @@
 	<hr>
 	<div>
 		<h2>Conclusions</h2>
-		<p>The results have shown two major points: </p>
+		<p>In general, our research leads to the deduction that there are certain publishers that send out a large proportion of the invalid citation data to Crossref, while in the receiving chart the most large-scale publishers are the ones most prone to receiving invalid citations. Another point of interest is the relatively large number of invalid citations that have been made to DOIs with invalid prefixes (prefixes not belonging to any publisher in Crossref). We used the umbrella term "unidentified" as the publisher name for all of these DOIs and, as we can see in the second visualization, this "publisher" is one of the publishers with the most citations received. Furthermore, another point of interest is the publisher name "Test accounts" retrieved from the Crossref API: the name of this hypothetical publisher, the lack of more information about it on Crossref, and the fact that among all the processed data it has only been on the receiving part of strictly invalid citation data, all point to the conclusion that such a publisher does not exist. Finally, for a select number of publishers responsible for the most invalid citation data, the number for invalid citation data received is also very high, surprisingly suggesting that these publishers have been auto-citing with invalid (or at least, still not yet validated) citation data, like in the case of Ovid Technologies. Our deduction based on available sources is that this invalid auto-citation might be caused by using internal DOI data not yet available to the public and Crossref.</p>
+		<p>Overall, the results have shown two major points:</p>
 		<ol>
 		<li>only a few publishers have a high number of invalid citations, of resources either citing or cited, while most of the remaining publishers flattens around small values.</li>
 		<li>only a small part of the previously invalid citations have successively become valid, and that, therefore, the issues that characterized the previously invalid DOIs are still present.</li>
 		</ol>  
-<p>The results of the project could be applied to the more general research area of COCI and OpenCitations, as well as the other projects that deal with open citational data. Indeed, this could make sure that more data can be integrated into COCI by grasping the issue of invalid DOIs at the root, therefore not correcting the invalid DOIs already collected, but correcting the activities carried out by the publishers that lead to these missing citations and invalid data; or hypothesize a different method of collecting the citational data from publishers that can prevent the insertion of incorrect citational data in platforms such as Crossref. Further improvements, concerning the recognition and correction of the errors affecting the prefixes, may lead to a broader comprehension of the world of the publishers related to the invalid DOIs, by adding to the research all the DOIs that, for this reason, could not be inserted in the final computations.</p>
+		<p>The results of the project could be applied to the more general research area of COCI and OpenCitations, as well as the other projects that deal with open citational data. Indeed, this could make sure that more data can be integrated into COCI by grasping the issue of invalid DOIs at the root, therefore not correcting the invalid DOIs already collected, but correcting the activities carried out by the publishers that lead to these missing citations and invalid data; or hypothesize a different method of collecting the citational data from publishers that can prevent the insertion of incorrect citational data in platforms such as Crossref. Further improvements, concerning the recognition and correction of the errors affecting the prefixes, may lead to a broader comprehension of the world of the publishers related to the invalid DOIs, by adding to the research all the DOIs that, for this reason, could not be inserted in the final computations.</p>
 	</div>
 	
 
@@ -902,7 +906,7 @@
 	
 	<!--Link to the software -->
 	<div id="software-div">
-		<button type="button" class="btn btn-secondary btn-lg">THE SOFTWARE</button>
+		<button type="button" class="btn btn-secondary btn-lg"><a href="http://doi.org/10.5281/zenodo.4735621">THE SOFTWARE</a></button>
 	</div>
 
 	  <!-- Footer -->
@@ -926,10 +930,12 @@
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
         <h5 class="text-uppercase">Useful links</h5>
 	      <ul style="list-style: none; padding: 0;">
-        	<li><a href="">Article</a></li>
-        	<li><a href="https://doi.org/10.5281/zenodo.4671486">DMP</a></li>
-        	<li><a href="https://dx.doi.org/10.17504/protocols.io.buhjnt4n">Protocol</a></li>
-        	<li><a href="https://github.com/open-sci/2020-2021">GitHub repo</a></li>
+        	<li><a href="http://doi.org/10.5281/zenodo.4735636">Research article</a></li>
+        	<li><a href="https://doi.org/10.5281/zenodo.4726095">DMP</a></li>
+        	<li><a href="https://dx.doi.org/10.17504/protocols.io.buqhnvt6">Protocol</a></li>
+        	<li><a href="http://doi.org/10.5281/zenodo.4735639">Data</a></li>
+        	<li><a href="https://github.com/open-sci/2020-2021">GitHub repo of the course</a></li>
+        	<li><a href="https://github.com/open-sci/2020-2021-the-leftovers-20-code">GitHub repo of the project</a></li>
 	      </ul>
       </div>
       <!--Grid column-->
