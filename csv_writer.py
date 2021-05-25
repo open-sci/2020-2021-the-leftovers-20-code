@@ -22,12 +22,12 @@ def write_to_csv(publisher_data, prefix_to_name_dict, correct_dois_data, incorre
     if not os.path.exists('correct_dois.csv'):
         with open('correct_dois.csv', 'w', encoding='utf8') as fd:
             writer = csv.writer(fd)
-            writer.writerow(['Valid_citing_doi', 'Valid_cited_doi'])
+            writer.writerow(['Valid_citing_doi', 'Valid_cited_doi', "Validation_time"])
 
     if not os.path.exists('incorrect_dois.csv'):
         with open('incorrect_dois.csv', 'w', encoding='utf8') as fd:
             writer = csv.writer(fd)
-            writer.writerow(['Valid_citing_doi', 'Invalid_cited_doi'])
+            writer.writerow(['Valid_citing_doi', 'Invalid_cited_doi', "Validation_time"])
 
     with open('correct_dois.csv', 'a', encoding='utf8') as fd:
         writer = csv.writer(fd)

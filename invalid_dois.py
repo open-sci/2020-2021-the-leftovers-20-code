@@ -5,6 +5,7 @@ from row_number_extractor import extract_row_number
 from csv_writer import write_to_csv
 from publishers import extract_publishers_valid, extract_publishers_invalid
 from output_creator import create_output
+from datetime import datetime
 
 """
 The input csv file is opened and the following data structures are created: 
@@ -62,9 +63,13 @@ if __name__ == '__main__':
                 r = requests.get(url=URL)
                 status_code = r.status_code
                 if status_code == 200:
+                    validation_time = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+                    row.append(validation_time)
                     correct_dois_data.append(row)
                     extract_publishers_valid(row, publisher_data, prefix_to_name_dict)
                 else:
+                    validation_time = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+                    row.append(validation_time)
                     incorrect_dois_data.append(row)
                     extract_publishers_invalid(row, publisher_data, prefix_to_name_dict)
             except requests.ConnectionError:
