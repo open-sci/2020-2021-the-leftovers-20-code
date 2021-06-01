@@ -3,10 +3,11 @@ from row_number_extractor import extract_row_number
 from csv_writer import write_to_csv
 from publishers import extract_publishers_valid, extract_publishers_invalid, extract_publishers
 from output_creator import create_output
+from invalid_dois import invalid_dois_main
 import os.path
 
 
-class MyTestCase( unittest.TestCase ):
+class MyTestCase(unittest.TestCase):
 
     def setUp(self):
         self.test_publisher_data = {
@@ -173,6 +174,13 @@ class MyTestCase( unittest.TestCase ):
         self.invalid_cit_row = ['10.14778/1920841.1920954', '10.5555/646836.708343', '05/31/2021, 20:29:18']
         self.invalid_cit_row_citing = 'VLDB Endowment'
         self.invalid_cit_row_cited = 'Test accounts'
+        self.example_output_path= "ex_output.json"
+        self.example_output_path_2= "ex_output_2.json"
+        self.example_input_path= "ex_input.csv"
+
+    def test_invalid_dois_main(self):
+        invalid_dois_main(2, self.example_input_path, self.example_output_path)
+        self.assertTrue(os.path.isfile(self.example_output_path))
 
     def test_write_to_csv_and_extract_row_number_and_create_output(self):
         write_to_csv( self.test_publisher_data, self.test_prefix_to_name_dict, self.test_correct_dois_data,
@@ -182,12 +190,13 @@ class MyTestCase( unittest.TestCase ):
         self.assertTrue( os.path.isfile( self.prefix_name_json_filepath ) )
         self.assertTrue( os.path.isfile( self.publisher_data_csv_filepath ) )
         self.assertEqual( extract_row_number( self.test_publisher_data ), (13, self.test_prefix_to_name_dict) )
-        create_output( self.test_publisher_data )
+        create_output( self.test_publisher_data, self.example_output_path_2)
         self.assertTrue( os.path.isfile( self.output_json_filepath ) )
         self.assertFalse( os.path.isfile( self.correct_dois_csv_filepath ) )
         self.assertFalse( os.path.isfile( self.incorrect_dois_csv_filepath ) )
         self.assertFalse( os.path.isfile( self.prefix_name_json_filepath ) )
         self.assertFalse( os.path.isfile( self.publisher_data_csv_filepath ) )
+
 
     def test_extract_publishers_valid(self):
         extract_publishers_valid( self.validated_cit_row, self.test_publisher_data, self.test_prefix_to_name_dict )

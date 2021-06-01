@@ -10,7 +10,7 @@ reusability of the extracted information.
 """
 
 
-def create_output(publisher_data):
+def create_output(publisher_data, output_json):
     output_dict = {
         "citations": {
             "valid": list(),
@@ -45,7 +45,7 @@ def create_output(publisher_data):
         pub["prefix_list"] = publisher_prefix_data[pub["name"]]
         output_dict["publishers"].append(pub)
 
-    with open("output.json", 'w', encoding='utf8') as fd:
+    with open(output_json, 'w', encoding='utf8') as fd:
         json.dump(output_dict, fd, indent=4)
         
     for path in ["correct_dois.csv", "incorrect_dois.csv", "prefix_name.json", "publisher_data.csv"]:
