@@ -105,7 +105,7 @@ the case of rec_prefix it is "receiving_i".
 
 
 def extract_publishers_invalid(row, publisher_data, prefix_to_name_dict):
-    resp_prefix, rec_prefix = row[0].split('/')[0], row[1].split('/')[0]
+    resp_prefix, rec_prefix = (re.findall("(^10.\d{4,9})", row[0].split('/')[0]))[0], (re.findall("(^10.\d{4,9})", row[1].split('/')[0]))[0]
 
     if resp_prefix not in prefix_to_name_dict.keys():
         responsible = extract_publishers(resp_prefix, prefix_to_name_dict)
