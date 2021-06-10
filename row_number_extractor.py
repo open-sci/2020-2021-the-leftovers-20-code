@@ -22,7 +22,7 @@ def extract_row_number(publisher_data):
         with open('publisher_data.csv', 'r', encoding='utf8') as read_obj:
             dict_reader = csv.DictReader(read_obj)
             for pub in dict_reader:
-                publisher_data[pub['name']] = {
+                publisher_data[pub['crossref_member']] = {
                     "name": pub["name"],
                     "responsible_for_v": int(pub["responsible_for_v"]),
                     "responsible_for_i": int(pub["responsible_for_i"]),

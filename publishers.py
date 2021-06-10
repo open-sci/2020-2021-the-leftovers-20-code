@@ -1,4 +1,5 @@
 import requests
+import re
 
 """
 The publishers’ identification issue is addressed by two specular functions, 
@@ -32,17 +33,20 @@ def extract_publishers(prefix, prefix_to_name_dict):
         if req_status_code == 200:
             req_data = req.json()
             publisher["name"] = req_data["message"]["name"]
+            extended_member_code = req_data["message"]["member"]
+            reduced_member_code = (re.findall("(\d+)", extended_member_code))[0]
+            publisher["crossref_member"] = reduced_member_code
             publisher["prefix"] = prefix
         else:
             publisher["name"] = "unidentified"
+            publisher["crossref_member"] = "not found"
             publisher["prefix"] = prefix
 
-        prefix_to_name_dict[publisher["prefix"]] = publisher["name"]
+        prefix_to_name_dict[publisher["prefix"]] = (publisher["name"], publisher["crossref_member"])
 
     except requests.ConnectionError:
         print("failed to connect to crossref for", prefix)
         quit()
-
     return publisher
 
 """
@@ -54,12 +58,16 @@ citations, in the case a dictionary for a given publisher already exists.
 
 
 def extract_publishers_valid(row, publisher_data, prefix_to_name_dict):
-    resp_prefix, rec_prefix = row[0].split('/')[0], row[1].split('/')[0]
+    resp_prefix, rec_prefix = (re.findall("(^10.\d{4,9})", row[0].split('/')[0]))[0], (re.findall("(^10.\d{4,9})", row[1].split('/')[0]))[0]
+    print("this is the resp prefix", resp_prefix)
+    print("this is the rec prefix", rec_prefix)
+
+
 
     if resp_prefix not in prefix_to_name_dict.keys():
         responsible = extract_publishers(resp_prefix, prefix_to_name_dict)
-        if responsible["name"] not in publisher_data.keys():
-            publisher_data[responsible["name"]] = {
+        if responsible["crossref_member"] not in publisher_data.keys():
+            publisher_data[responsible["crossref_member"]] = {
                 "name": responsible["name"],
                 "responsible_for_v": 1,
                 "responsible_for_i": 0,
@@ -67,14 +75,14 @@ def extract_publishers_valid(row, publisher_data, prefix_to_name_dict):
                 "receiving_i": 0
             }
         else:
-            publisher_data[responsible["name"]]["responsible_for_v"] += 1
+            publisher_data[responsible["crossref_member"]]["responsible_for_v"] += 1
     else:
-        publisher_data[prefix_to_name_dict[resp_prefix]]["responsible_for_v"] += 1
+        publisher_data[prefix_to_name_dict[resp_prefix][1]]["responsible_for_v"] += 1
 
     if rec_prefix not in prefix_to_name_dict.keys():
         receiving = extract_publishers(rec_prefix, prefix_to_name_dict)
-        if receiving["name"] not in publisher_data.keys():
-            publisher_data[receiving["name"]] = {
+        if receiving["crossref_member"] not in publisher_data.keys():
+            publisher_data[receiving["crossref_member"]] = {
                 "name": receiving["name"],
                 "responsible_for_v": 0,
                 "responsible_for_i": 0,
@@ -82,9 +90,9 @@ def extract_publishers_valid(row, publisher_data, prefix_to_name_dict):
                 "receiving_i": 0
             }
         else:
-            publisher_data[receiving["name"]]["receiving_v"] += 1
+            publisher_data[receiving["crossref_member"]]["receiving_v"] += 1
     else:
-        publisher_data[prefix_to_name_dict[rec_prefix]]["receiving_v"] += 1
+        publisher_data[prefix_to_name_dict[rec_prefix][1]]["receiving_v"] += 1
 
 
 """
@@ -101,8 +109,8 @@ def extract_publishers_invalid(row, publisher_data, prefix_to_name_dict):
 
     if resp_prefix not in prefix_to_name_dict.keys():
         responsible = extract_publishers(resp_prefix, prefix_to_name_dict)
-        if responsible["name"] not in publisher_data.keys():
-            publisher_data[responsible["name"]] = {
+        if responsible["crossref_member"] not in publisher_data.keys():
+            publisher_data[responsible["crossref_member"]] = {
                 "name": responsible["name"],
                 "responsible_for_v": 0,
                 "responsible_for_i": 1,
@@ -110,14 +118,14 @@ def extract_publishers_invalid(row, publisher_data, prefix_to_name_dict):
                 "receiving_i": 0
             }
         else:
-            publisher_data[responsible["name"]]["responsible_for_i"] += 1
+            publisher_data[responsible["crossref_member"]]["responsible_for_i"] += 1
     else:
-        publisher_data[prefix_to_name_dict[resp_prefix]]["responsible_for_i"] += 1
+        publisher_data[prefix_to_name_dict[resp_prefix][1]]["responsible_for_i"] += 1
 
     if rec_prefix not in prefix_to_name_dict.keys():
         receiving = extract_publishers(rec_prefix, prefix_to_name_dict)
-        if receiving["name"] not in publisher_data.keys():
-            publisher_data[receiving["name"]] = {
+        if receiving["crossref_member"] not in publisher_data.keys():
+            publisher_data[receiving["crossref_member"]] = {
                 "name": receiving["name"],
                 "responsible_for_v": 0,
                 "responsible_for_i": 0,
@@ -125,6 +133,6 @@ def extract_publishers_invalid(row, publisher_data, prefix_to_name_dict):
                 "receiving_i": 1
             }
         else:
-            publisher_data[receiving["name"]]["receiving_i"] += 1
+            publisher_data[receiving["crossref_member"]]["receiving_i"] += 1
     else:
-        publisher_data[prefix_to_name_dict[rec_prefix]]["receiving_i"] += 1
+        publisher_data[prefix_to_name_dict[rec_prefix][1]]["receiving_i"] += 1
