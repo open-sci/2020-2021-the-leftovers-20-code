@@ -144,9 +144,9 @@ def search_for_publisher_in_other_agencies(doi, external_data_dict):
 
 
 def extract_publishers_valid(row, publisher_data, prefix_to_name_dict, external_data_dict):
-    # resp_prefix, rec_prefix = (re.findall("(^10.\d{4,9})", row[0].split('/')[0]))[0], (re.findall("(^10.\d{4,9})", row[1].split('/')[0]))[0]
+    resp_prefix, rec_prefix = (re.findall("(^10.\d{4,9})", row[0].split('/')[0]))[0], (re.findall("(^10.\d{4,9})", row[1].split('/')[0]))[0]
 
-    resp_prefix, rec_prefix = row[0].split('/')[0], row[1].split('/')[0]
+    #resp_prefix, rec_prefix = row[0].split('/')[0], row[1].split('/')[0]
 
     if resp_prefix not in prefix_to_name_dict.keys():
         responsible = extract_publishers(resp_prefix, prefix_to_name_dict)
@@ -194,8 +194,12 @@ the case of rec_prefix it is "receiving_i".
 
 
 def extract_publishers_invalid(row, publisher_data, prefix_to_name_dict):
-    # resp_prefix, rec_prefix = (re.findall("(^10.\d{4,9})", row[0].split('/')[0]))[0], (re.findall("(^10.\d{4,9})", row[1].split('/')[0]))[0]
-    resp_prefix, rec_prefix = row[0].split('/')[0], row[1].split('/')[0]
+    if (re.findall("(^10.\d{4,9})", row[1].split('/')[0])):
+        resp_prefix, rec_prefix = (re.findall("(^10.\d{4,9})", row[0].split('/')[0]))[0], (re.findall("(^10.\d{4,9})", row[1].split('/')[0]))[0]
+    else:
+        print("failed to find a compliant doi prefix for the receiving doi in:", row)
+        resp_prefix = (re.findall("(^10.\d{4,9})", row[0].split('/')[0]))[0]
+        rec_prefix = row[1].split('/')[0]
 
     if resp_prefix not in prefix_to_name_dict.keys():
         responsible = extract_publishers(resp_prefix, prefix_to_name_dict)
