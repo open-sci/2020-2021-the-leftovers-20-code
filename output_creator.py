@@ -42,8 +42,12 @@ def create_output(publisher_data, output_json):
                 publisher_prefix_data[value].append(key)
 
     for pub in publisher_data.values():
-        pub["prefix_list"] = publisher_prefix_data[pub["name"]]
+        pub["prefix_list"] = publisher_prefix_data[pub["crossref_member"]]
         output_dict["publishers"].append(pub)
+
+    with open("external_data.json", 'r', encoding='utf8') as fd:
+        data = json.load(fd)
+        output_dict["external_data_for_unrecognized_prefixes"] = data
 
     with open(output_json, 'w', encoding='utf8') as fd:
         json.dump(output_dict, fd, indent=4)

@@ -17,12 +17,13 @@ exploiting the data provided in “publisher_data.csv”.
 def extract_row_number(publisher_data):
     num = 0
     if not os.path.exists('publisher_data.csv'):
-        return num, dict()
+        return num, dict(), dict()
     else:
         with open('publisher_data.csv', 'r', encoding='utf8') as read_obj:
             dict_reader = csv.DictReader(read_obj)
             for pub in dict_reader:
                 publisher_data[pub['crossref_member']] = {
+                    "crossref_member": pub["crossref_member"],
                     "name": pub["name"],
                     "responsible_for_v": int(pub["responsible_for_v"]),
                     "responsible_for_i": int(pub["responsible_for_i"]),
@@ -34,4 +35,7 @@ def extract_row_number(publisher_data):
         with open("prefix_name.json", 'r', encoding='utf8') as fd:
             prefix_to_name_dict = json.load(fd)
 
-        return num, prefix_to_name_dict
+        with open("external_data.json", 'r', encoding='utf8') as fd:
+            external_data_dict = json.load(fd)
+
+        return num, prefix_to_name_dict, external_data_dict

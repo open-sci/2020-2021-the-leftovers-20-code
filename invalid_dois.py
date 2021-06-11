@@ -43,13 +43,14 @@ def invalid_dois_main(n, input_csv, output_json):
         publisher_data = dict()
         correct_dois_data = []
         incorrect_dois_data = []
-        start_index, prefix_to_name_dict = extract_row_number( publisher_data )
-        csv_reader = csv.reader( islice( read_obj, start_index + 1, None ) )
+        start_index, prefix_to_name_dict, external_data_dict = extract_row_number(publisher_data)
+        csv_reader = csv.reader(islice(read_obj, start_index + 1, None))
 
         i = 0
         for row in csv_reader:
             if i == n:
-                write_to_csv( publisher_data, prefix_to_name_dict, correct_dois_data, incorrect_dois_data )
+                write_to_csv(publisher_data, prefix_to_name_dict, external_data_dict, correct_dois_data,
+                             incorrect_dois_data)
                 correct_dois_data = []
                 incorrect_dois_data = []
                 print("So far processed", start_index + i, "rows.")
@@ -57,24 +58,24 @@ def invalid_dois_main(n, input_csv, output_json):
                 i = 0
             URL = "https://doi.org/api/handles/" + row[1]
             try:
-                r = requests.get( url=URL )
+                r = requests.get(url=URL)
                 status_code = r.status_code
                 if status_code == 200:
                     validation_time = datetime.now().strftime( "%m/%d/%Y, %H:%M:%S" )
-                    row.append( validation_time )
-                    correct_dois_data.append( row )
-                    extract_publishers_valid( row, publisher_data, prefix_to_name_dict )
+                    row.append(validation_time)
+                    correct_dois_data.append(row)
+                    extract_publishers_valid(row, publisher_data, prefix_to_name_dict, external_data_dict)
                 else:
                     validation_time = datetime.now().strftime( "%m/%d/%Y, %H:%M:%S" )
-                    row.append( validation_time )
-                    incorrect_dois_data.append( row )
-                    extract_publishers_invalid( row, publisher_data, prefix_to_name_dict )
+                    row.append(validation_time)
+                    incorrect_dois_data.append(row)
+                    extract_publishers_invalid(row, publisher_data, prefix_to_name_dict)
             except requests.ConnectionError:
                 print("failed to connect to doi for row", row)
                 quit()
 
             i += 1
-        write_to_csv(publisher_data, prefix_to_name_dict, correct_dois_data, incorrect_dois_data )
+        write_to_csv(publisher_data, prefix_to_name_dict, external_data_dict, correct_dois_data, incorrect_dois_data)
         correct_dois_data = []
         incorrect_dois_data = []
         create_output(publisher_data, output_json)
