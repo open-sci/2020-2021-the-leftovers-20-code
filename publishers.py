@@ -90,8 +90,11 @@ def search_in_medra(doi):
         req_status_code = req.status_code
         if req_status_code == 200:
             tree = etree.XML(req.content)
-            publisher["name"] = tree.xpath('//x:PublisherName',
-                                           namespaces={'x': 'http://www.editeur.org/onix/DOIMetadata/2.0'})[0].text
+            publisher_xpath = tree.xpath('//x:PublisherName',
+                                         namespaces={'x': 'http://www.editeur.org/onix/DOIMetadata/2.0'})
+            if len(publisher_xpath) == 0:
+                return publisher
+            publisher["name"] = publisher_xpath[0].text
             publisher["prefix"] = doi.split('/')[0]
 
     except requests.ConnectionError:
