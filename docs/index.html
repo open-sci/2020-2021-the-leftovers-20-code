@@ -59,7 +59,7 @@
 			background-color: black;
 		}
 
-		#main{
+		.main{
 			margin: 40px 80px 40px 80px;
 			text-align:justify;
 		}
@@ -238,6 +238,7 @@
 	      <a class="nav-item nav-link white-nav" href="#q1">Responsible Publishers</a>
 	      <a class="nav-item nav-link white-nav" href="#q2">Receiving Publishers</a>
 	      <a class="nav-item nav-link white-nav" href="#q3">Now Valid Citations</a>
+	      <a class="nav-item nav-link white-nav" href="#selfcit">Self Citations</a>
 	      <a class="nav-item nav-link white-nav" href="#conclusion">Conclusions</a>
 	      <a class="nav-item nav-link white-nav" href="#about">About</a>
 	    </div>
@@ -286,12 +287,12 @@
 	
 	<br>
 
-		<span id="intro"></span>
-	<div id="main">
+	<span id="intro"></span>
+	<div class="main">
 		<h2>Introduction</h2>
 	</div>
 
-		<!-- <div id="intro-sec">
+	<!-- <div id="intro-sec">
 			<div id="main-text"> -->
 	<div class="d-flex flex-row">
 		<div class="p-2">
@@ -311,8 +312,8 @@
 		</div>
 	</div>
 
-		<br>
-		<!-- <div id="intro-sec">-->
+	<br>
+	<!-- <div id="intro-sec">-->
 	<div class="d-flex flex-row">
 		<div class="p-2" id="revert-img">
 			<img src="https://static.vecteezy.com/system/resources/previews/001/869/978/non_2x/avatar-men-with-teamwork-icon-design-free-vector.jpg">
@@ -333,7 +334,7 @@
 		</div>
 	</div>
 
-	<div id="main">
+	<div class="main">
 
 
 		<span id="q1"></span>
@@ -839,6 +840,16 @@
 
 	</div>
 
+		<span id="selfcit"></span>
+		<hr>
+		<div>
+			<h2>An interesting case: Self-Citations</h2>
+			<p>From the results obtained in answering the research questions cited in the previous sections, we noticed a curious case: some publishers who are among the top twenty citing also appear to be among the top twenty cited in the missing citations in COCI. This fact intrigued us and led us to investigate the matter further to find out if it is a case of <b>self-citation</b>. So we have reworked the data we already have to organize them in order to save the following information: who are the publishers cited by the first twenty cites and in what number of citations. To represent the data obtained we have chosen to use a sankey diagram. As the chart shows, some interesting cases that emerge with these data are that of Ovid Technologies, which turns out to be an interesting case of self-citation as we had supposed; but also the case of ... </p>
+
+		</div>
+
+
+
 		<span id="conclusion"></span>
 	<hr>
 	<div>
@@ -922,9 +933,10 @@
         <h5 class="text-uppercase">Credits</h5>
 
         <ul style="list-style-type: none; padding: 0;">
-            <li><a href=”https://www.chartjs.org/”>chart.js</a></li>
-			<li><a href=”https://d3js.org/”>d3.js</a></li>
-			<li><a href=”https://getbootstrap.com/”>bootstrap</a></li>
+            <li><a href="https://www.chartjs.org/">chart.js</a></li>
+			<li><a href="https://d3js.org/">d3.js</a></li>
+			<li><a href="https://getbootstrap.com/">Bootstrap</a></li>
+			<li><a href="https://www.highcharts.com/">Highcharts</a></li>
 
         </ul>
       </div>
