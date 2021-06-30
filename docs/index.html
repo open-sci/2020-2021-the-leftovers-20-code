@@ -28,7 +28,7 @@
 
 		span {
 			margin-bottom: 25px;
-			height: 100px;
+			height: 50px;
 			width: 50px;
 			display: block;
 		}
@@ -70,10 +70,11 @@
 			background-color: black;
 		}
 
-		.main{
-			margin: 40px 80px 40px 80px;
+		.main, .d-flex {
+			margin: 1vw 8vw 0 8vw;
 			text-align:justify;
 		}
+
 		#button {
 		  display: inline-block;
 		  background-color: #14141c;
@@ -151,21 +152,20 @@
 		}
 		img {
 		    max-width: 50vw;
-		    padding: 5vw;
+		    padding: 2vw;
 		    margin: auto;
 		}
-		.p-2{
-			text-align: justify;
-			padding: 5vw;
+
+		.p-2 {
+			text-align: justify !important;
 		}
-		.p-2 p {
-			padding-left: 5vw;
-			padding-right: 5vw;
+
+		#revert-p {
+			padding-left: 0 !important;
 		}
 
 		.p-2 ul {
-			padding-left: 7vw;
-			padding-right: 5vw;
+			padding-left: 2vw;
 		}
 
 		.p-4 {
@@ -289,12 +289,7 @@
 		<div id="head-sec">
 		<div id="main-text">
 	<h1>Investigating missing DOIs</h1>
-	    <p>The purpose of this work derives from the research questions that have guided it from the very beginning. They concern:</p>
-			<ul>
-				<li>the identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI;</li>
-				<li>the identification of the publishers to which such invalid citations point (i.e. who published the cited articles);</li>
-				<li>the number of currently valid citations among those initially invalid according to our input data.</li>
-			</ul>
+			<p>The purpose of this work derives from the research questions that have guided it from the very beginning. They concern: the identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI; the identification of the publishers to which such invalid citations point (i.e. who published the cited articles); and the number of currently valid citations among those initially invalid according to our input data.</p>
 
 	</div>
 	<img src="img/team.png">
@@ -326,15 +321,14 @@
 		</ul>
 		</div>
 
-		<div class="p-2" id="center-img">
+		<div id="center-img">
 		<img src="https://static.vecteezy.com/system/resources/previews/001/869/216/non_2x/people-with-teamwork-icon-design-free-vector.jpg">
 		</div>
 	</div>
 
-	<br>
 	<!-- <div id="intro-sec">-->
 	<div class="d-flex flex-row">
-		<div class="p-2" id="revert-img">
+		<div id="revert-img">
 			<img src="https://static.vecteezy.com/system/resources/previews/001/869/978/non_2x/avatar-men-with-teamwork-icon-design-free-vector.jpg">
 		</div>
 			<!-- <div id="main-text"> -->
@@ -352,6 +346,32 @@
 	</div>
 
 	<div class="main">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 		<span id="q1"></span>
@@ -680,7 +700,7 @@
 
 
 
-		
+
 
 		<span id="q3"></span>
 		<hr>
@@ -694,7 +714,7 @@
 
 		<script>
 
-			var data = jQuery.getJSON('', function(json) {
+			var data = jQuery.getJSON('json/q3.json', function(json) {
 
 				var data = {
 					"valid":json["total_num_of_valid_citations"],
