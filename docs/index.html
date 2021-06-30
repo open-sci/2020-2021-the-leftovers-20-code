@@ -8,10 +8,21 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/sankey.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600&display=swap" rel="stylesheet">
 	<style>
+
+		#container-sankey {
+			min-width: 300px;
+			max-width: 800px;
+			height: 800px;
+			margin: 1em auto;
+			border: 1px solid silver;
+		}
 
 		footer a { text-decoration: underline; }
 
@@ -147,10 +158,16 @@
 			text-align: justify;
 			padding: 5vw;
 		}
-		.p-2 p, .p-2 li{
+		.p-2 p {
 			padding-left: 5vw;
 			padding-right: 5vw;
 		}
+
+		.p-2 ul {
+			padding-left: 7vw;
+			padding-right: 5vw;
+		}
+
 		.p-4 {
 		    padding-top: 1.5rem!important;
 		    font-size: 13px;
@@ -272,11 +289,13 @@
 		<div id="head-sec">
 		<div id="main-text">
 	<h1>Investigating missing DOIs</h1>
-	    <p>The purpose of this work derives from the research questions that have guided it from the very beginning. They concern:
+	    <p>The purpose of this work derives from the research questions that have guided it from the very beginning. They concern:</p>
+			<ul>
+				<li>the identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI;</li>
+				<li>the identification of the publishers to which such invalid citations point (i.e. who published the cited articles);</li>
+				<li>the number of currently valid citations among those initially invalid according to our input data.</li>
+			</ul>
 
-	the identification of the publishers responsible (due to their incorrect metadata sent to Crossref) for the missing citations in COCI;
-	the identification of the publishers to which such invalid citations point (i.e. who published the cited articles);
-	the number of currently valid citations among those initially invalid according to our input data.</p>
 	</div>
 	<img src="img/team.png">
 	    </div>
@@ -321,8 +340,6 @@
 			<!-- <div id="main-text"> -->
 		<div class="p-2" id="revert-p">
 		<p>In particular, among the data obtained and collected in the output file, we have selected some more suitable to represent the information found and therefore facilitate its interpretation:</p>
-		
-
 		<ul>
 			<li>The names and identifiers of the publishers involved in the citations (either as the publishers of the citing DOI or the publisher of the cited DOIs); </li>
 			<li>The numbers of the valid and invalid citations they are responsible for as the publishers of the valid citing DOI; </li>
@@ -345,7 +362,7 @@
 		<p class="p-text">To answer this research question, we identified both the names of the publishers responsible for the invalid citations - i.e., the publishers of the valid citing DOIs - and the total number of citing DOIs for each publisher, both those that remained invalid even after the DOI API request and those that became valid. This distinction is useful for outline if there are some publishers more than others whose citations in which they appeared as publisher of the citers were then validated.</p>
 		<p>Starting from the approach of choosing to retrieve this type of additional information as well, the resulting data turned out to be particularly interesting.</p>
 
-		<input type="text" id="input-p" onkeyup="searchPublisherr()" placeholder="Search for publishers.." title="Type in a name">
+		<input type="text" id="input-p" onkeyup="searchPublisherr()" placeholder="Search for a publisher..." title="Type in a name">
 
 		<div id="scroll">
 			<table id="tab_citing" class="table">
@@ -358,6 +375,56 @@
 			</table>
 		</div>
 
+		<script>
+			d3.csv('csv/all_pub_data_for_tables.csv', function(pub_data) {
+					// console.log(pub);
+					var pubname = pub_data.map(function (d) {
+						return d.pname
+					});
+					var invalid_citing = pub_data.map(function (d) {
+						return d.responsible_for_i
+					});
+					var valid_citing = pub_data.map(function (d) {
+						return d.responsible_for_v
+					});
+
+					var table = document.getElementById("tab_citing");
+
+					// console.log(invalid_citing);
+
+					for (let i = 0; i <= pub_data.length; i++) {
+						var row = table.insertRow(-1);
+						row.insertCell(0).innerHTML = pubname[i];
+						row.insertCell(1).innerHTML = invalid_citing[i];
+						row.insertCell(2).innerHTML = valid_citing[i];
+						row.insertCell(3).innerHTML = String(parseInt(invalid_citing[i]) + parseInt(valid_citing[i]));
+					}
+
+			});
+
+			// search bar
+
+			function searchPublisherr() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("input-p");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("tab_citing");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}
+				}
+			};
+
+		</script>
+
 		<p class="p-text">The following visualization is built upon the twenty most relevant publishers retrieved in our analysis, with respect to both the number of addressed and received citations. First, it is noted that there is only one publisher whose number of articles with citing DOIs is significantly greater than all the others, and that is Ovid Technologies (Wolters Kluwer Health). Other significant publishers for the numbers of citing DOIs are: Springer Science and Business Media LLC, Association for Computing Machinery (ACM), Informa UK Limited and Wiley. As for the other publishers, the number of citing DOIs of which they are publishers is between considerably lower figures: between 1000 DOIs and 15000 DOIs approximately. In the second place, at least for what concerns these selected publishers, the number of citing DOIs of now valid citations - after the DOI API request - is distributed only among a few publishers.</p>
 		<p><i>(over with the mouse the bars to see the exact number of valid/invalid citations)</i></p>
 		<div id="container-chartjs">
@@ -365,83 +432,19 @@
 		</div>
 
 		<script>
-			var data = jQuery.getJSON('output_read_only_new.json', function(json) {
-				var keys = [];
-
-				var array_of_dict = []; //data structure for the bar graph
-
-				for (var p in json["publishers"]){ // p è una stringa di un numero
-					keys.push([json["publishers"][parseInt(p)]["name"], parseInt(p)]); //p["name"] ? per metterli in ordine alfabetico -- p["name"] è undefined
-				}
-
-				var sortedKeys = keys.sort(function (a,b) {
-					if (a[0] < b[0]) return -1;
-					if (a[0] > b[0]) return 1;
-					return 0;
-				});
-
-				for(var pub of sortedKeys){
-					// console.log(pub);
-					var name = pub[0];
-					var invalid_citing = json["publishers"][pub[1]]["responsible_for_i"];
-					var valid_citing= json["publishers"][pub[1]]["responsible_for_v"];
-					var table = document.getElementById("tab_citing");
-
-					// console.log(invalid_citing);
-
-					var row = table.insertRow(-1);
-					row.insertCell(0).innerHTML = name;
-					row.insertCell(1).innerHTML = invalid_citing;
-					row.insertCell(2).innerHTML = valid_citing;
-					row.insertCell(3).innerHTML = invalid_citing+valid_citing;
-
-					// has to be 19 in the real world
-					if (array_of_dict.length <= 19) {
-						array_of_dict.push({
-							"publisher": name,
-							"invalid_citing": invalid_citing,
-							"valid_citing": valid_citing,
-							"total": invalid_citing+valid_citing
-						});
-
-					}
-					else {
-						var pos = 0;
-						var smallest = array_of_dict[0]["total"];
-						for (d of array_of_dict) {
-							if (d["total"] < smallest) {
-								smallest = d['total'];
-								pos = array_of_dict.indexOf(d);
-							}
-						}
-						if (invalid_citing+valid_citing > smallest) {
-							array_of_dict[pos]["publisher"] = name;
-							array_of_dict[pos]["invalid_citing"] = invalid_citing;
-							array_of_dict[pos]["valid_citing"] = valid_citing;
-							array_of_dict[pos]["total"] = invalid_citing+valid_citing;
-						}
-
-					}
-
-				} // si chiude il for loop
-
-				// sort array of dict in ordine decrescente
-				array_of_dict.sort(function(a,b) {
-					return b.total - a.total
-				});
-
+			d3.csv('csv/citing_bar_chart.csv', function(citing_data) {
 				const ctx = document.getElementById("bar-chartjs").getContext("2d");
 
-				var valid_cit = array_of_dict.map(function (d) {
-					return d.valid_citing;
+				var valid_cit = citing_data.map(function (d) {
+					return d.responsible_for_v;
 				});
 
-				var invalid_cit = array_of_dict.map(function (d) {
-					return d.invalid_citing;
+				var invalid_cit = citing_data.map(function (d) {
+					return d.responsible_for_i;
 				});
 
-				var pubs = array_of_dict.map(function (d) {
-					return d.publisher;
+				var pubs = citing_data.map(function (d) {
+					return d.name;
 				});
 
 
@@ -471,18 +474,19 @@
 							xAxes: [{
 								stacked: true,
 								ticks: {
-									autoSkip: false
+									autoSkip: false,
+									stepSize: 25000
 								}
 							}],
 							yAxes: [{
 								stacked: true
 							}]
 						},
-			            title: {
-			                display: true,
-			                text: 'Stacked Bar Chart with invalid and valid citing publishers',
-			                fontSize:30
-			            }
+						title: {
+							display: true,
+							text: 'Stacked Bar Chart with invalid and valid citing publishers',
+							fontSize:30
+						}
 					},
 					/*plugins: [{
 					   beforeDraw: function(c) {
@@ -492,33 +496,31 @@
 					}]*/
 				});
 
-			});
-
-			// search bar
-
-			function searchPublisherr() {
-				var input, filter, table, tr, td, i, txtValue;
-				input = document.getElementById("input-p");
-				filter = input.value.toUpperCase();
-				table = document.getElementById("tab_citing");
-				tr = table.getElementsByTagName("tr");
-				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[0];
-					if (td) {
-						txtValue = td.textContent || td.innerText;
-						if (txtValue.toUpperCase().indexOf(filter) > -1) {
-							tr[i].style.display = "";
-						} else {
-							tr[i].style.display = "none";
-						}
-					}
-				}
-			};
-
-
+			})
 		</script>
 
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		<span id="q2"></span>
 		<hr>
@@ -527,7 +529,7 @@
 
 		<p class="p-text">The visualization for this second research question and the data upon which it is constructed are referring only to the twenty most relevant publishers. The methodology and the approach followed for this part of the research correspond to those declared for the first part, while the citational data we have considered refer to the publishers of the cited articles.</p>
 
-		<input type="text" id="input-pp" onkeyup="searchPublisher()" placeholder="Search for publishers.." title="Type in a name">
+		<input type="text" id="input-pp" onkeyup="searchPublisher()" placeholder="Search for a publisher..." title="Type in a name">
 
 		<div id="scroll-cited">
 			<table id="tab_cited" class="table">
@@ -540,6 +542,56 @@
 			</table>
 		</div>
 
+		<script>
+			d3.csv('csv/all_pub_data_for_tables.csv', function(pub_data) {
+				// console.log(pub);
+				var pubname = pub_data.map(function (d) {
+					return d.pname
+				});
+				var invalid_cited = pub_data.map(function (d) {
+					return d.receiving_i
+				});
+				var valid_cited = pub_data.map(function (d) {
+					return d.receiving_v
+				});
+
+				var table = document.getElementById("tab_cited");
+
+				// console.log(invalid_citing);
+
+				for (let i = 0; i <= pub_data.length; i++) {
+					var row = table.insertRow(-1);
+					row.insertCell(0).innerHTML = pubname[i];
+					row.insertCell(1).innerHTML = invalid_cited[i];
+					row.insertCell(2).innerHTML = valid_cited[i];
+					row.insertCell(3).innerHTML = String(parseInt(invalid_cited[i]) + parseInt(valid_cited[i]));
+				}
+
+			});
+
+			// search bar
+
+			function searchPublisher() {
+				var input, filter, table, tr, td, i, txtValue;
+				input = document.getElementById("input-pp");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("tab_cited");
+				tr = table.getElementsByTagName("tr");
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+							tr[i].style.display = "";
+						} else {
+							tr[i].style.display = "none";
+						}
+					}
+				}
+			}
+
+		</script>
+
 		<p class="p-text">The following visualization shows similar results to those shown for the previous research question. Firstly, Ovid Technologies (Wolters Kluwer Health) is still the publisher with the significantly higher number of DOIs cited than the other publishers. Other significant publishers for the numbers of citing DOIs are: Test accounts, Springer Science and Business Media LLC, Wiley and Elsevier BV. As for the data collected to answer this second research question, the numbers are slightly smaller: around the forty-one thousand DOIs mentioned for the first publisher, while the number for most of the others is concentrated between fourteen thousand and sixteen hundred. Secondly, also in this case, the number of DOIs mentioned validated with the DOI API request are concentrated among a few selected publishers.</p>
 		<p><i>(hover with the mouse the bars to see the exact number of valid/invalid citations)</i></p>
 		<div id="container-chartjs-cited">
@@ -547,82 +599,19 @@
 		</div>
 
 		<script type="text/javascript">
-
-			var data = jQuery.getJSON('output_read_only_new.json', function(json) {
-				var keys = [];
-
-				var array_of_dict = []; //data structure for the bar graph
-
-				for (var p in json["publishers"]){ // p è una stringa di un numero
-					keys.push([json["publishers"][parseInt(p)]["name"], parseInt(p)]); //p["name"] ? per metterli in ordine alfabetico -- p["name"] è undefined
-				}
-
-				var sortedKeys = keys.sort(function (a,b) {
-					if (a[0] < b[0]) return -1;
-					if (a[0] > b[0]) return 1;
-					return 0;
-				});
-
-				for(var pub of sortedKeys){
-					// console.log(pub);
-					var name = pub[0];
-					var invalid_cited = json["publishers"][pub[1]]["receiving_i"];
-					var valid_cited = json["publishers"][pub[1]]["receiving_v"];
-					var table = document.getElementById("tab_cited");
-
-					var row = table.insertRow(-1);
-					row.insertCell(0).innerHTML = name;
-					row.insertCell(1).innerHTML = invalid_cited;
-					row.insertCell(2).innerHTML = valid_cited;
-					row.insertCell(3).innerHTML = invalid_cited+valid_cited;
-
-					// has to be 19 in the real world
-					if (array_of_dict.length <= 19) {
-						array_of_dict.push({
-							"publisher": name,
-							"invalid_cited": invalid_cited,
-							"valid_cited": valid_cited,
-							"total": invalid_cited+valid_cited
-						});
-
-					}
-					else {
-						var pos = 0;
-						var smallest = array_of_dict[0]["total"];
-						for (d of array_of_dict) {
-							if (d["total"] < smallest) {
-								smallest = d['total'];
-								pos = array_of_dict.indexOf(d);
-							}
-						}
-						if (invalid_cited+valid_cited > smallest) {
-							array_of_dict[pos]["publisher"] = name;
-							array_of_dict[pos]["invalid_cited"] = invalid_cited;
-							array_of_dict[pos]["valid_cited"] = valid_cited;
-							array_of_dict[pos]["total"] = invalid_cited+valid_cited;
-						}
-
-					}
-
-				} // si chiude il for loop
-
-				// sort array of dict in ordine decrescente
-				array_of_dict.sort(function(a,b) {
-					return b.total - a.total
-				});
-
+			d3.csv('csv/cited_bar_chart.csv', function(cited_data) {
 				const ctx = document.getElementById("bar-chartjs-cited").getContext("2d");
 
-				var valid_cit = array_of_dict.map(function (d) {
-					return d.valid_cited;
+				var valid_cit = cited_data.map(function (d) {
+					return d.receiving_v;
 				});
 
-				var invalid_cit = array_of_dict.map(function (d) {
-					return d.invalid_cited;
+				var invalid_cit = cited_data.map(function (d) {
+					return d.receiving_i;
 				});
 
-				var pubs = array_of_dict.map(function (d) {
-					return d.publisher;
+				var pubs = cited_data.map(function (d) {
+					return d.name;
 				});
 
 
@@ -652,7 +641,8 @@
 							xAxes: [{
 								stacked: true,
 								ticks: {
-									autoSkip: false
+									autoSkip: false,
+									stepSize: 25000
 								}
 							}],
 							yAxes: [{
@@ -662,8 +652,7 @@
 			            title: {
 			                display: true,
 			                text: 'Stacked Bar Chart with invalid and valid cited publishers',
-			                fontSize:30,
-			                paddingBottom:100
+			                fontSize:30
 			            }
 					}
 				});
@@ -671,30 +660,27 @@
 			})
 
 
-			// search bar
-
-			function searchPublisher() {
-				var input, filter, table, tr, td, i, txtValue;
-				input = document.getElementById("input-pp");
-				filter = input.value.toUpperCase();
-				table = document.getElementById("tab_cited");
-				tr = table.getElementsByTagName("tr");
-				for (i = 0; i < tr.length; i++) {
-					td = tr[i].getElementsByTagName("td")[0];
-					if (td) {
-						txtValue = td.textContent || td.innerText;
-						if (txtValue.toUpperCase().indexOf(filter) > -1) {
-							tr[i].style.display = "";
-						} else {
-							tr[i].style.display = "none";
-						}
-					}
-				}
-			}
 
 		</script>
 
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 
 		<span id="q3"></span>
 		<hr>
@@ -708,7 +694,7 @@
 
 		<script>
 
-			var data = jQuery.getJSON('output_read_only_new.json', function(json) {
+			var data = jQuery.getJSON('', function(json) {
 
 				var data = {
 					"valid":json["total_num_of_valid_citations"],
@@ -844,7 +830,31 @@
 		<hr>
 		<div>
 			<h2>An interesting case: Self-Citations</h2>
-			<p>From the results obtained in answering the research questions cited in the previous sections, we noticed a curious case: some publishers who are among the top twenty citing also appear to be among the top twenty cited in the missing citations in COCI. This fact intrigued us and led us to investigate the matter further to find out if it is a case of <b>self-citation</b>. So we have reworked the data we already have to organize them in order to save the following information: who are the publishers cited by the first twenty cites and in what number of citations. To represent the data obtained we have chosen to use a sankey diagram. As the chart shows, some interesting cases that emerge with these data are that of Ovid Technologies, which turns out to be an interesting case of self-citation as we had supposed; but also the case of ... </p>
+			<p>From the results obtained in answering the research questions cited in the previous sections, we noticed a curious case: some publishers who are among the top twenty citing also appear to be among the top twenty cited in the missing citations in COCI. This fact intrigued us and led us to investigate the matter further to find out if it is a case of <b>self-citation</b>. So we have reworked the data we already have to organize them in order to save the following information: who are the publishers cited by the first twenty cites and in what number of citations. To represent the data obtained we have chosen to use a sankey diagram. As the chart shows, some interesting cases that emerge with these data are that of Ovid Technologies, which turns out to be an interesting case of self-citation as we had supposed; but also the case of JSTOR appear as a self-citation case for invalid citations; and finally, the last interesting case is that of Association for Computing Machinery (ACM): most of the invalid citations of which it is the responsible publisher point to Test accounts, which is a ghost publisher (i.e., not clearly identified).</p>
+
+			<div id="container-sankey"></div>
+			<script type="text/javascript">
+				var data = jQuery.getJSON('json/links_decode.json',
+						function(json) {
+							Highcharts.chart('container-sankey', {
+
+								title: {
+									text: 'Sankey Diagram for Self-Citation'
+								},
+
+								series: [{
+									keys: ['from', 'to', 'weight', 'id'],
+									data: json['links'],
+									nodes: json['decode'],
+									type: 'sankey',
+									name: 'Publishers series'
+								}]
+
+							});
+						})
+
+			</script>
+
 
 		</div>
 
