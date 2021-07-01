@@ -1,5 +1,6 @@
 import requests
 import csv
+import sys
 from itertools import islice
 from row_number_extractor import extract_row_number
 from csv_writer import write_to_csv
@@ -81,5 +82,10 @@ def invalid_dois_main(n, input_csv, output_json):
         create_output(publisher_data, output_json)
 
 if __name__ == '__main__':
-    invalid_dois_main(100, "invalid_dois.csv", "output.json")
+    try:
+        input_file = sys.argv[1]
+        output_file = sys.argv[2]
+    except IndexError:
+        raise SystemExit(f"Usage: {sys.argv[0]} <input_csv_address> <output_json_address>")
+    invalid_dois_main(100, input_file, output_file)
 
