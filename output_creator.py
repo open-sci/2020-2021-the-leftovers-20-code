@@ -52,5 +52,6 @@ def create_output(publisher_data, output_json):
     with open(output_json, 'w', encoding='utf8') as fd:
         json.dump(output_dict, fd, indent=4)
         
-    for path in ["correct_dois.csv", "incorrect_dois.csv", "prefix_name.json", "publisher_data.csv"]:
+    for path in ["correct_dois.csv", "incorrect_dois.csv", "prefix_name.json", "publisher_data.csv",
+                 "external_data.json"]:
         os.remove(path)
