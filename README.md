@@ -2,7 +2,7 @@
 
 In this repository you can find all the code used for our course project for the Open Science course in the academic year 2020-2021. The main purpose of this project has been to extract the publishers involved in providing invalid citation data to Crossref and the publishers whose articles receive such invalid citations. We have used a [dataset](https://doi.org/10.5281/zenodo.4625300) created by the creators of [COCI](https://opencitations.net/index/coci) while extracting data from Crossref.
 
-You can read a more in-depth description of our project in the [related article](https://doi.org/10.5281/zenodo.4735635) and see our results visualized in our [Github Pages website](https://open-sci.github.io/2020-2021-the-leftovers-20-code/index.html). The final output resulted from executing this code on our source dataset can be found [here]().
+You can read a more in-depth description of our project in the [related article](https://doi.org/10.5281/zenodo.4735635) and see our results visualized in our [Github Pages website](https://open-sci.github.io/2020-2021-the-leftovers-20-code/index.html). The final output resulted from executing this code on our source dataset can be found [here](10.5281/zenodo.4735638).
 
 ## How to Run the Code
 
@@ -26,7 +26,7 @@ The entire execution of the code took place on a computer with the following rel
 - [Our Website](https://open-sci.github.io/2020-2021-the-leftovers-20-code/index.html)
 - [Our Protocol](10.17504/protocols.io.buqhnvt6)
 - [Our Data Management Plan](10.5281/zenodo.4671486)
-- [Our Result Dataset]()
+- [Our Result Dataset](10.5281/zenodo.4735638)
 - [Our Source Dataset](https://doi.org/10.5281/zenodo.4625300)
 - [Our Sister Project](https://github.com/open-sci/2020-2021-grasshoppers-code)
 - [COCI](https://opencitations.net/index/coci)
