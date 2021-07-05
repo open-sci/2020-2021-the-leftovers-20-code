@@ -8,17 +8,17 @@ You can read a more in-depth description of our project in the [related article]
 
 In order to avoid errors, make sure you have a version of Python 3 installed and have the lxml package on it. Here's the command that runs the code:
 ```
-$ python invalid_dois.py <input_csv_address> <output_json_address>
+$ python invalid_dois.py <input_csv_address> <output_json_address> <checkpoint_threshold>
 ```
-The first argument is the address to the CSV dataset you want to investigate and the second argument is the address to the desired output JSON file. Both must include the extension. You can stop the execution at any time and rerun it at a later time without losing the data processed up to that point thanks to the cache files created during the process.
+The first argument is the address to the CSV dataset you want to investigate and the second argument is the address to the desired output JSON file. Both must include the extension. The third argument represents the number of lines to read from the input file before saving the results to the cache files. You can stop the execution at any time and rerun it at a later time without losing the data processed up to that point thanks to the cache files created during the process.
 
 ## Hardware Configuration
 
 The entire execution of the code took place on a computer with the following relevant hardware specifications:
 
-- CPU: 
-- RAM: 
-- Storage:
+- CPU: Intel Core i7
+- RAM: 8.00 GB
+- Storage: 2 TB HDD
 
 ## See Also
 
