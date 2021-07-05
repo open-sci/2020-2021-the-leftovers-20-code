@@ -4,20 +4,20 @@ from lxml import etree
 
 """
 The publishers’ identification issue is addressed by two specular functions, 
-i.e.: extract_publishers_valid(row, publisher_data, prefix_to_member_code_dict) and 
+i.e.: extract_publishers_valid(row, publisher_data, prefix_to_member_code_dict, external_data_dict) and 
 extract_publishers_invalid(row, publisher_data, prefix_to_member_code_dict), handling 
 respectively data of publishers related to validated and still invalid citational 
 data. Both of them call an ancillary function, i.e.: extract_publishers(prefix, 
-prefix_to_member_code_dict), which is aimed at managing the API request to the Crossref 
+prefix_to_member_code_dict, checking=False), which is aimed at managing the API request to the Crossref 
 API service. In particular, the used API service exploits the prefixes of the 
 Digital Object Identifiers to trace back to their publishers. 
 """
 
 """
-The function extract_publishers(prefix, prefix_to_member_code_dict) takes in input a prefix 
+The function extract_publishers(prefix, prefix_to_member_code_dict, checking=False) takes in input a prefix 
 of a DOI and the dictionary prefix_to_member_code_dict, and it returns a dictionary named 
-“publisher”, containing two key-value pairs, “name” and “prefix”, whose values are 
-respectively the string of the publisher’s name and the prefix which identifies it 
+“publisher”, containing 3 key-value pairs, “name”, "crossref_member" and “prefix”, whose values are 
+respectively the string of the publisher’s name, its Crossref member code and the prefix which identifies it 
 in the Digital Object Identifier. Its scope is that of retrieving and storing 
 information about the name and the DOI prefix of the publisher of the source 
 identified by a Digital Object Identifier in the dictionary prefix_to_member_code_dict. 
@@ -52,13 +52,6 @@ def extract_publishers(prefix, prefix_to_member_code_dict, checking=False):
         print("failed to connect to crossref for", prefix)
         quit()
     return publisher
-
-"""
-extract_publishers_valid(row, publisher_data, prefix_to_member_code_dict) manages the 
-addition of unprocessed publishers’ dictionaries to publisher_data and the update 
-of the values related to the number of either valid or invalid addressed or received 
-citations, in the case a dictionary for a given publisher already exists.
-"""
 
 
 def search_in_datacite(doi):
@@ -146,6 +139,16 @@ def search_for_publisher_in_other_agencies(doi, external_data_dict):
         return
 
 
+"""
+extract_publishers_valid(row, publisher_data, prefix_to_member_code_dict, external_data_dict) manages the 
+addition of unprocessed publishers’ dictionaries to publisher_data and the update 
+of the values related to the number of either valid or invalid addressed or received 
+citations, in the case a dictionary for a given publisher already exists. 
+In the case a publisher's prefix doesn't allow its identification in Crossref, we call the function 
+search_for_publisher_in_other_agencies(row[1], external_data_dict), in order to try to identify it in other services.
+This very last option is not included for the version for not validated citations. 
+"""
+
 def extract_publishers_valid(row, publisher_data, prefix_to_member_code_dict, external_data_dict):
     resp_prefix, rec_prefix = (re.findall("(^10.\d{4,9})", row[0].split('/')[0]))[0], (re.findall("(^10.\d{4,9})", row[1].split('/')[0]))[0]
 
@@ -187,7 +190,7 @@ def extract_publishers_valid(row, publisher_data, prefix_to_member_code_dict, ex
 
 """
 The function extract_publishers_invalid(row, publisher_data, prefix_to_member_code_dict) performs 
-the very same role of the above presented correspective for valid citations, and thus it 
+the very same role of the above presented corresponding function for valid citations, and thus it 
 shares this latter’s same structure. The only logical difference is that in the case of 
 resp_prefix the key whose value is to be incremented is "responsible_for_i", while in 
 the case of rec_prefix it is "receiving_i".
