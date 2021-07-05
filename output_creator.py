@@ -3,7 +3,7 @@ import csv
 import os
 
 """
-create_output(publisher_data), is aimed at organizing all the collected data in order to store 
+create_output(publisher_data, output_json), is aimed at organizing all the collected data in order to store 
 them in a JSON file, which is the output of the whole software execution. The purpose of this 
 step is saving the obtained results in view of a maximization of the readability and the 
 reusability of the extracted information. 

@@ -12,8 +12,8 @@ files are then opened and respectively compiled by using the data stored in corr
 and incorrect_dois_data. The following step implies opening in write mode the 
 “publisher_data.csv” file and assigning the following headers: 'name', 'responsible_for_v', 
 'responsible_for_i', 'receiving_v', 'receiving_i'. The rows are then filled with the data 
-derived from the publisher_data dictionary.  Eventually, “prefix_member_code.json” file is opened 
-in write mode and accordingly filled with prefix_to_member_code_dict values. 
+derived from the publisher_data dictionary.  Eventually, “prefix_member_code.json” and 'external_data.json' 
+files are opened  in write mode and accordingly filled with prefix_to_member_code_dict values. 
 
 """
 

@@ -3,9 +3,11 @@ import csv
 import os
 
 """
-extract_row_number(publisher_data) returns an integer number and the dictionary 
-prefix_to_member_code_dict, containing a mapping between the prefixes and the names of 
-the respective publishers. The integer retrieved is used as an index representing 
+extract_row_number(publisher_data) returns an integer number, the dictionary 
+prefix_to_member_code_dict, containing a mapping between the prefixes and the Crossref Member codes of 
+the respective publishers, and external_data_dict, a dictionary storing the data of those publishers whose
+doi prefix didn't allow their identification in Crossref. 
+The integer retrieved is used as an index representing 
 the number of the already successfully processed input rows. Accordingly, it is used 
 to slice the input CSV file and process it only from the first unprocessed line on, 
 in case the code run is interrupted. The additional function of this part of code is 
