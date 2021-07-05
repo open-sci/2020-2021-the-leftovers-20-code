@@ -33,7 +33,7 @@ def create_output(publisher_data, output_json):
         for row in reader:
             output_dict["citations"]["invalid"].append(dict(row))
 
-    with open("prefix_name.json", 'r', encoding='utf8') as fd:
+    with open("prefix_member_code.json", 'r', encoding='utf8') as fd:
         data = json.load(fd)
         for key, value in data.items():
             if value not in publisher_prefix_data.keys():
@@ -52,6 +52,6 @@ def create_output(publisher_data, output_json):
     with open(output_json, 'w', encoding='utf8') as fd:
         json.dump(output_dict, fd, indent=4)
         
-    for path in ["correct_dois.csv", "incorrect_dois.csv", "prefix_name.json", "publisher_data.csv",
+    for path in ["correct_dois.csv", "incorrect_dois.csv", "prefix_member_code.json", "publisher_data.csv",
                  "external_data.json"]:
         os.remove(path)

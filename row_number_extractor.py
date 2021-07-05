@@ -4,7 +4,7 @@ import os
 
 """
 extract_row_number(publisher_data) returns an integer number and the dictionary 
-prefix_to_name_dict, containing a mapping between the prefixes and the names of 
+prefix_to_member_code_dict, containing a mapping between the prefixes and the names of 
 the respective publishers. The integer retrieved is used as an index representing 
 the number of the already successfully processed input rows. Accordingly, it is used 
 to slice the input CSV file and process it only from the first unprocessed line on, 
@@ -32,10 +32,10 @@ def extract_row_number(publisher_data):
                 }
                 num += int(pub['responsible_for_i']) + int(pub['responsible_for_v'])
 
-        with open("prefix_name.json", 'r', encoding='utf8') as fd:
-            prefix_to_name_dict = json.load(fd)
+        with open("prefix_member_code.json", 'r', encoding='utf8') as fd:
+            prefix_to_member_code_dict = json.load(fd)
 
         with open("external_data.json", 'r', encoding='utf8') as fd:
             external_data_dict = json.load(fd)
 
-        return num, prefix_to_name_dict, external_data_dict
+        return num, prefix_to_member_code_dict, external_data_dict

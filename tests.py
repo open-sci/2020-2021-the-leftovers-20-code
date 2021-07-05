@@ -141,7 +141,7 @@ class MyTestCase(unittest.TestCase):
             }
         }
 
-        self.test_prefix_to_name_dict = {'10.14778': '5777',
+        self.test_prefix_to_member_code_dict = {'10.14778': '5777',
                                          '10.5555': '7822',
                                          '10.5406': '3673',
                                          '10.2307': '1121',
@@ -185,7 +185,7 @@ class MyTestCase(unittest.TestCase):
         self.test_external_data_dict= {'10.13745': {'name': 'CNKI Publisher (unspecified)', 'extracted_from': 'doi'}}
         self.correct_dois_csv_filepath = "correct_dois.csv"
         self.incorrect_dois_csv_filepath = "incorrect_dois.csv"
-        self.prefix_name_json_filepath = "prefix_name.json"
+        self.prefix_member_code_json_filepath = "prefix_member_code.json"
         self.publisher_data_csv_filepath = "publisher_data.csv"
         self.output_json_filepath = "output.json"
         self.valid_doi_prefix = "10.1007"
@@ -205,39 +205,41 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(os.path.isfile(self.example_output_path))
 
     def test_write_to_csv_and_extract_row_number_and_create_output(self):
-        write_to_csv( self.test_publisher_data, self.test_prefix_to_name_dict, self.test_external_data_dict, self.test_correct_dois_data,
+        write_to_csv( self.test_publisher_data, self.test_prefix_to_member_code_dict, self.test_external_data_dict, 
+                      self.test_correct_dois_data,
                       self.test_incorrect_dois_data )
         self.assertTrue( os.path.isfile( self.correct_dois_csv_filepath ) )
         self.assertTrue( os.path.isfile( self.incorrect_dois_csv_filepath ) )
-        self.assertTrue( os.path.isfile( self.prefix_name_json_filepath ) )
+        self.assertTrue( os.path.isfile( self.prefix_member_code_json_filepath ) )
         self.assertTrue( os.path.isfile( self.publisher_data_csv_filepath ) )
-        self.assertEqual(extract_row_number( self.test_publisher_data ), (13, self.test_prefix_to_name_dict, self.test_external_data_dict))
+        self.assertEqual(extract_row_number( self.test_publisher_data ), (13, self.test_prefix_to_member_code_dict, 
+                                                                          self.test_external_data_dict))
         create_output( self.test_publisher_data, self.example_output_path_2)
         self.assertTrue( os.path.isfile( self.output_json_filepath ) )
         self.assertFalse( os.path.isfile( self.correct_dois_csv_filepath ) )
         self.assertFalse( os.path.isfile( self.incorrect_dois_csv_filepath ) )
-        self.assertFalse( os.path.isfile( self.prefix_name_json_filepath ) )
+        self.assertFalse( os.path.isfile( self.prefix_member_code_json_filepath ) )
         self.assertFalse( os.path.isfile( self.publisher_data_csv_filepath ) )
 
 
     def test_extract_publishers_valid(self):
-        extract_publishers_valid( self.validated_cit_row, self.test_publisher_data, self.test_prefix_to_name_dict, self.test_external_data_dict)
+        extract_publishers_valid( self.validated_cit_row, self.test_publisher_data, self.test_prefix_to_member_code_dict, self.test_external_data_dict)
         self.assertIn(self.validated_cit_row_citing, self.test_publisher_data.keys() )
         self.assertIn( self.validated_cit_row_cited, self.test_publisher_data.keys() )
         self.assertTrue( self.test_publisher_data[self.validated_cit_row_citing]['responsible_for_v'] >= 1 )
         self.assertTrue( self.test_publisher_data[self.validated_cit_row_cited]['receiving_v'] >= 1 )
 
     def test_extract_publishers_invalid(self):
-        extract_publishers_invalid( self.invalid_cit_row, self.test_publisher_data, self.test_prefix_to_name_dict )
+        extract_publishers_invalid( self.invalid_cit_row, self.test_publisher_data, self.test_prefix_to_member_code_dict )
         self.assertIn( self.invalid_cit_row_citing, self.test_publisher_data.keys() )
         self.assertIn( self.invalid_cit_row_cited, self.test_publisher_data.keys() )
         self.assertTrue( self.test_publisher_data[self.invalid_cit_row_citing]['responsible_for_i'] >= 1 )
         self.assertTrue( self.test_publisher_data[self.invalid_cit_row_cited]['receiving_i'] >= 1 )
 
     def test_extract_publishers(self):
-        self.assertEqual( extract_publishers( self.invalid_doi_prefix, self.test_prefix_to_name_dict ),
+        self.assertEqual( extract_publishers( self.invalid_doi_prefix, self.test_prefix_to_member_code_dict ),
                           {'crossref_member': '7822', 'name': 'Test accounts', 'prefix': '10.5555'})
-        self.assertEqual( extract_publishers( self.valid_doi_prefix, self.test_prefix_to_name_dict ),
+        self.assertEqual( extract_publishers( self.valid_doi_prefix, self.test_prefix_to_member_code_dict ),
                           {'crossref_member': '297', 'name': 'Springer Science and Business Media LLC', 'prefix': '10.1007'} )
 
 
