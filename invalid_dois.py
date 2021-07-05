@@ -86,7 +86,8 @@ if __name__ == '__main__':
     try:
         input_file = sys.argv[1]
         output_file = sys.argv[2]
+        checkpoint_threshold = int(sys.argv[3])
     except IndexError:
-        raise SystemExit(f"Usage: {sys.argv[0]} <input_csv_address> <output_json_address>")
-    invalid_dois_main(100, input_file, output_file)
+        raise SystemExit(f"Usage: {sys.argv[0]} <input_csv_address> <output_json_address> <checkpoint_threshold>")
+    invalid_dois_main(checkpoint_threshold, input_file, output_file)
 
