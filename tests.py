@@ -214,8 +214,8 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue( os.path.isfile( self.publisher_data_csv_filepath ) )
         self.assertEqual(extract_row_number( self.test_publisher_data ), (13, self.test_prefix_to_member_code_dict, 
                                                                           self.test_external_data_dict))
-        create_output( self.test_publisher_data, self.example_output_path_2)
-        self.assertTrue( os.path.isfile( self.output_json_filepath ) )
+        create_output(self.test_publisher_data, self.example_output_path_2)
+        self.assertTrue( os.path.isfile( self.example_output_path_2 ) )
         self.assertFalse( os.path.isfile( self.correct_dois_csv_filepath ) )
         self.assertFalse( os.path.isfile( self.incorrect_dois_csv_filepath ) )
         self.assertFalse( os.path.isfile( self.prefix_member_code_json_filepath ) )
