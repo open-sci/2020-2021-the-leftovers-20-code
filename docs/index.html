@@ -861,13 +861,49 @@
 								title: {
 									text: 'Sankey Diagram for Self-Citation'
 								},
+								accessibility: {
+									point: {
+										valueDescriptionFormat: '{index}. {point.from} to {point.to}, {point.weight}.'
+									}
+								},
 
+								exporting: {
+									sourceWidth: 800,
+									sourceHeight: 700,
+									scale: 3,
+									chartOptions: {
+										subtitle: null,
+										title: null,
+										series: [{
+											dataLabels: {
+												padding: 2,
+												style: {
+													fontSize: "12px",
+													fontWeight: "bold",
+													textOutline: '#ffffff',
+													color: '#000',
+													fontFamily: 'Arial'
+												}
+											}
+										}]
+									}
+								},
 								series: [{
 									keys: ['from', 'to', 'weight', 'id'],
 									data: json['links'],
 									nodes: json['decode'],
 									type: 'sankey',
-									name: 'Publishers series'
+									name: 'Publishers series',
+									dataLabels: {
+										padding: 2,
+										style: {
+											fontSize: "11px",
+											fontWeight: "bold",
+											textOutline: '#ffffff',
+											color: '#000',
+											fontFamily: 'Arial'
+										}
+									}
 								}]
 
 							});
